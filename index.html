@@ -87,77 +87,184 @@
     }
   </style>
 
-  <!-- Schema.org LocalBusiness & GroceryStore Yapısal Veri Bloğu (Elbistan / Kahramanmaraş) -->
+  <!-- Schema.org LocalBusiness, GroceryStore, Product ItemList & FAQPage Yapısal Veri Bloğu (Elbistan / Kahramanmaraş) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["GroceryStore", "LocalBusiness"],
-    "name": "Ayşem Gıda - Doğal Köy Ürünleri ve Şarküteri",
-    "alternateName": "Ayşem Gıda Elbistan",
-    "description": "Elbistan ve Kahramanmaraş yöresine ait katkısız köy sütü ürünleri, gezen köy tavuğu, organik köy yumurtası, ev yapımı salça, Maraş cips tarhanası ve doğal şarküteri ürünleri.",
-    "url": "https://aysemgida.com",
-    "telephone": "+905420000000",
-    "priceRange": "₺₺",
-    "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Güneşli Mahallesi, Hulusi Efendi Bulvarı No: 46/A",
-      "addressLocality": "Elbistan",
-      "addressRegion": "Kahramanmaraş",
-      "postalCode": "46300",
-      "addressCountry": "TR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 38.2059,
-      "longitude": 37.1983
-    },
-    "areaServed": [
+    "@graph": [
       {
-        "@type": "City",
-        "name": "Elbistan"
-      },
-      {
-        "@type": "AdministrativeArea",
-        "name": "Kahramanmaraş"
-      },
-      {
-        "@type": "Country",
-        "name": "Türkiye"
-      }
-    ],
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
+        "@type": ["GroceryStore", "LocalBusiness"],
+        "@id": "https://aysemgida.com/#store",
+        "name": "Ayşem Gıda - Elbistan Doğal Köy Ürünleri ve Şarküteri",
+        "alternateName": "Ayşem Gıda Elbistan",
+        "description": "Elbistan ve Kahramanmaraş yöresine ait katkısız köy sütü ürünleri, gezen köy tavuğu, organik köy yumurtası, ev yapımı salça, Maraş cips tarhanası ve doğal şarküteri ürünleri.",
+        "url": "https://aysemgida.com/",
+        "telephone": "+905420000000",
+        "priceRange": "₺₺",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Güneşli Mahallesi, Hulusi Efendi Bulvarı No: 46/A",
+          "addressLocality": "Elbistan",
+          "addressRegion": "Kahramanmaraş",
+          "postalCode": "46300",
+          "addressCountry": "TR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 38.2059,
+          "longitude": 37.1983
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Elbistan" },
+          { "@type": "City", "name": "Afşin" },
+          { "@type": "AdministrativeArea", "name": "Kahramanmaraş" },
+          { "@type": "Country", "name": "Türkiye" }
         ],
-        "opens": "08:00",
-        "closes": "20:00"
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "148",
+          "bestRating": "5"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "08:00",
+            "closes": "20:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ]
       },
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Sunday",
-        "opens": "09:00",
-        "closes": "18:00"
+        "@type": "ItemList",
+        "@id": "https://aysemgida.com/#products",
+        "name": "Elbistan Doğal Köy Ürünleri ve Şarküteri Kataloğu",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "Product",
+              "name": "Geleneksel Elbistan Köy Tereyağı (Yayık - 1 Kg)",
+              "description": "Elbistan köylerinde doğal beslenen hayvanların sütünden üretilen %100 saf katkısız yayık köy tereyağı.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "420", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "Product",
+              "name": "Katkısız Tam Yağlı Elbistan Köy Peyniri (1 Kg)",
+              "description": "Geleneksel ev yapımı, katkısız tam yağlı salamura Elbistan köy peyniri.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "290", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "Product",
+              "name": "Doğal Gezen Köy Tavuğu (Temizlenmiş ~2 Kg)",
+              "description": "Elbistan köylerinde serbest gezen, doğal yemle beslenen günlük taze köy tavuğu.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "480", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "Product",
+              "name": "Günlük Organik Köy Yumurtası (30'lu Koli)",
+              "description": "Elbistan köylerinden günlük toplanan sarı özlü doğal gezen tavuk yumurtası.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "210", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "Product",
+              "name": "Geleneksel Maraş Cips Tarhanası (500 Gr)",
+              "description": "Güneşte kurutulmuş, tam kıvamında kıtır ev yapımı Kahramanmaraş ve Elbistan cips tarhanası.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "240", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "item": {
+              "@type": "Product",
+              "name": "Elbistan Ev Yapımı Biber Salçası (1 Kg)",
+              "description": "Güneşte kurutulmuş, katkısız %100 doğal Elbistan ev yapımı tatlı ve acı biber salçası.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "280", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "item": {
+              "@type": "Product",
+              "name": "Cevizli Üzüm Sucuğu - Köme / Pestil (500 Gr)",
+              "description": "Glikoz şurubu içermeyen, saf üzüm şırası ve yerli kelebek ceviz ile hazırlanan Elbistan cevizli sucuk.",
+              "brand": { "@type": "Brand", "name": "Ayşem Gıda" },
+              "offers": { "@type": "Offer", "price": "295", "priceCurrency": "TRY", "availability": "https://schema.org/InStock" }
+            }
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://aysemgida.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Elbistan içi eve teslimat yapıyor musunuz?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet, Elbistan merkez mahallelerine (Güneşli, Kızılcaoba, Cumhuriyet, Pınarbaşı, Yeşilyurt ve tüm merkez mahallelere) WhatsApp üzerinden verdiğiniz siparişleri aynı gün içerisinde taze olarak ulaştırıyoruz."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Şehir dışına köy tereyağı, peynir ve salça kargosu nasıl gönderiliyor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Elbistan dışından verilen siparişlerde peynir, tereyağı ve tarhana gibi ürünler el değmeden vakumlanır, ısı yalıtımlı strafor kutular ve buz aküleri ile soğuk zincir korunarak Türkiye'nin 81 iline kargolanır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Gezen köy tavuğu ve köy yumurtası günlük mü geliyor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet, köy tavuklarımız ve organik köy yumurtalarımız Elbistan köylerinde serbest gezen ve doğal beslenen tavuklardan günlük olarak temin edilmektedir. Sipariş üzerine hijyenik koşullarda temizlenerek teslim edilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Web sitenizden nasıl sipariş verebilirim, online ödeme var mı?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sitemizde kredi kartı veya üyelik zorunluluğu yoktur. Beğendiğiniz ürünün altındaki 'WhatsApp ile Sipariş Ver' butonuna tıklayarak veya birden fazla ürünü Sipariş Listenize ekleyerek doğrudan WhatsApp sipariş hattımıza iletebilirsiniz."
+            }
+          }
+        ]
       }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Elbistan Doğal Köy ve Şarküteri Ürünleri",
-      "itemListElement": [
-        { "@type": "OfferCatalog", "name": "Köy Sütü ve Süt Ürünleri" },
-        { "@type": "OfferCatalog", "name": "Köy Tavuğu ve Organik Yumurta" },
-        { "@type": "OfferCatalog", "name": "Elbistan & Maraş Ev Yapımı Lezzetler" },
-        { "@type": "OfferCatalog", "name": "Organik Kahvaltılık & Tatlılar" },
-        { "@type": "OfferCatalog", "name": "Köy Kuruyemişi & Taze Kahve" }
-      ]
-    }
+    ]
   }
   </script>
 </head>
@@ -394,8 +501,40 @@
         </div>
 
         <!-- ÜRÜN GRID: Mobil için kesin olarak grid-cols-2 (1 satırda 2 ürün), Tablet/Masaüstü için 3 ve 4 sütun -->
+        <!-- SEO İÇİN STATİK ÖN-RENDER (Googlebot JS çalıştırmadan da tüm ürün başlıklarını, fiyatlarını ve Elbistan anahtar kelimelerini doğrudan HTML içinde indeksler) -->
         <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
-          <!-- JavaScript tarafından dinamik olarak doldurulur -->
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Geleneksel Köy Tereyağı (Yayık) - Elbistan Köy Mandırası</h3>
+            <p class="text-xs text-stone-600">%100 Saf Tereyağı - 1 Kg - 420 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Katkısız Tam Yağlı Köy Peyniri - Geleneksel Ev Yapımı</h3>
+            <p class="text-xs text-stone-600">Günlük Taze Salamura Köy Peyniri - 1 Kg - 290 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Doğal Gezen Köy Tavuğu (Temizlenmiş) - Elbistan Köy Besisi</h3>
+            <p class="text-xs text-stone-600">Serbest Gezen Doğal Köy Tavuğu - Adet (~2 Kg) - 480 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Günlük Organik Köy Yumurtası - Elbistan Köyleri</h3>
+            <p class="text-xs text-stone-600">Doğal Yem & Mera Günlük Toplanan Köy Yumurtası - 30'lu Koli - 210 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Geleneksel Maraş Cips Tarhanası - Ev Yapımı Kıtır</h3>
+            <p class="text-xs text-stone-600">Güneşte Kurutulmuş Elbistan Maraş Tarhanası - 500 Gr - 240 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Elbistan Ev Yapımı Biber Salçası (Tatlı/Acı)</h3>
+            <p class="text-xs text-stone-600">Güneş Kurusu %100 Doğal Ev Salçası - 1 Kg - 280 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Cevizli Üzüm Sucuğu (Köme / Pestil) - Kelebek Cevizli</h3>
+            <p class="text-xs text-stone-600">Glikozsuz Saf Şıra Elbistan Cevizli Sucuk - 500 Gr - 295 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Odun Ateşinde Saf Üzüm & Dut Pekmezi</h3>
+            <p class="text-xs text-stone-600">Şeker İlavesiz Doğal Köy Pekmezi - 1 Kg - 310 ₺</p>
+          </article>
         </div>
 
         <!-- Arama Sonucu Bulunamadı Durumu -->
@@ -624,6 +763,90 @@
               loading="lazy" 
               referrerpolicy="no-referrer-when-downgrade">
             </iframe>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SIKÇA SORULAN SORULAR (FAQPage Schema Uyumlu & Yerel SEO Rehberi) -->
+    <section id="sss" class="py-10 sm:py-14 bg-brand-stone border-t border-stone-200/80">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Sol: Sıkça Sorulan Sorular (Akordiyon) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-brand-green bg-brand-greenLight px-3 py-1 rounded-full">
+                Merak Edilenler
+              </span>
+              <h2 class="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-2">
+                Sıkça Sorulan Sorular
+              </h2>
+            </div>
+
+            <div class="space-y-3 pt-2">
+              <details class="group bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs" open>
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-stone-900 list-none">
+                  <span>Elbistan içi eve teslimat yapıyor musunuz?</span>
+                  <span class="text-brand-green group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-stone-600 mt-2.5 leading-relaxed">
+                  Evet! <strong>Elbistan merkez mahallelerine</strong> (Güneşli, Kızılcaoba, Cumhuriyet, Pınarbaşı, Yeşilyurt, Orhangazi, Yunus Emre, Esentepe, Bahçelievler, Köprübaşı, Kümbet ve Battalgazi dahil tüm mahallelere) WhatsApp üzerinden verdiğiniz siparişleri aynı gün içerisinde taze olarak ulaştırıyoruz.
+                </p>
+              </details>
+
+              <details class="group bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-stone-900 list-none">
+                  <span>Şehir dışına köy tereyağı, peynir ve salça kargosu nasıl gönderiliyor?</span>
+                  <span class="text-brand-green group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-stone-600 mt-2.5 leading-relaxed">
+                  Elbistan dışından (İstanbul, Ankara, İzmir ve tüm Türkiye'den) verilen siparişlerde köy peyniri, yayık tereyağı ve Maraş tarhanası gibi ürünlerimiz el değmeden vakumlanır. Isı yalıtımlı özel strafor kutular ve buz aküleri ile soğuk zincir bozulmadan güvenle adresinize kargolanır.
+                </p>
+              </details>
+
+              <details class="group bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-stone-900 list-none">
+                  <span>Gezen köy tavuğu ve köy yumurtası günlük mü geliyor?</span>
+                  <span class="text-brand-green group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-stone-600 mt-2.5 leading-relaxed">
+                  Evet, <strong>Elbistan köy tavuğu</strong> ve organik köy yumurtalarımız çevre köylerimizde serbest gezen, antibiyotiksiz ve doğal beslenen tavuklardan günlük olarak temin edilir. Köy tavuklarımız sipariş üzerine hijyenik koşullarda temizlenerek hazırlanır.
+                </p>
+              </details>
+
+              <details class="group bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs">
+                <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-stone-900 list-none">
+                  <span>Web sitenizden nasıl sipariş verebilirim, online ödeme var mı?</span>
+                  <span class="text-brand-green group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-stone-600 mt-2.5 leading-relaxed">
+                  Sitemizde kredi kartı veya üyelik zorunluluğu yoktur. Beğendiğiniz ürünün altındaki <strong>"WhatsApp ile Sipariş Ver"</strong> butonuna tıklayarak veya birden fazla ürünü <strong>Sipariş Listenize</strong> ekleyerek tek tıkla doğrudan WhatsApp sipariş hattımıza iletebilirsiniz.
+                </p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Sağ: Yerel SEO Rehber Metni (Elbistan Doğal Köy Ürünleri & Şarküteri) -->
+          <div class="lg:col-span-5 bg-white p-5 sm:p-7 rounded-2xl border border-stone-200/90 shadow-card flex flex-col justify-between">
+            <div class="space-y-3">
+              <span class="text-xs font-bold uppercase tracking-widest text-brand-leaf">Yöresel Lezzet Rehberi</span>
+              <h3 class="font-serif text-xl sm:text-2xl font-bold text-stone-900">
+                Elbistan Şarküteri ve Doğal Köy Ürünlerinde Güvenilir Adres
+              </h3>
+              <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                Kahramanmaraş ve <strong>Elbistan doğal ürünler</strong> kültürü, bereketli toprakların ve geleneksel el emeğinin birleşimiyle oluşur. <strong>Ayşem Gıda Elbistan</strong> olarak; hiçbir koruyucu katkı maddesi içermeyen gerçek köy lezzetlerini doğrudan üreticiden sofranıza taşıyoruz.
+              </p>
+              <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                Kahvaltı sofralarınız için tam yağlı <strong>Elbistan köy peyniri</strong>, yayık tereyağı, taze çökelek ve doğal köy yumurtası; kışlık hazırlıklarınız için güneşte kurutulmuş <strong>Elbistan ev yapımı salça</strong> (tatlı/acı biber ve domates), kıtır <strong>Elbistan Maraş tarhanası</strong>, glikozsuz <strong>cevizli üzüm sucuğu</strong> ve odun ateşinde kaynatılmış saf dut/üzüm pekmezi çeşitlerimizle yılın 365 günü hizmetinizdeyiz.
+              </p>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+              <span>📍 Elbistan / Afşin / Kahramanmaraş</span>
+              <a href="#urunler" class="font-bold text-brand-green hover:underline">Tüm Ürünleri Gör ↑</a>
+            </div>
           </div>
 
         </div>
