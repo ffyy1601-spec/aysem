@@ -72,10 +72,37 @@
     .animate-marquee {
       display: flex;
       width: max-content;
-      animation: marquee 28s linear infinite;
+      animation: marquee 22s linear infinite;
     }
     .animate-marquee:hover {
       animation-play-state: paused;
+    }
+
+    /* Ters yöne kayan duyuru bandı animasyonu */
+    @keyframes marqueeReverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
+    }
+    .animate-marquee-reverse {
+      display: flex;
+      width: max-content;
+      animation: marqueeReverse 24s linear infinite;
+    }
+
+    /* Dikkat çekici büyüyüp küçülme (pulse/heartbeat) animasyonu - WhatsApp & Arama butonları için */
+    @keyframes attentionPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.14);
+      }
+    }
+    .animate-attention {
+      animation: attentionPulse 1.8s ease-in-out infinite;
+    }
+    .animate-attention-delayed {
+      animation: attentionPulse 1.8s ease-in-out 0.9s infinite;
     }
 
     /* Ürün kartı görsel zoom geçişi */
@@ -271,23 +298,23 @@
 
 <body class="bg-brand-stone text-stone-800 font-sans antialiased selection:bg-brand-green selection:text-white">
 
-  <!-- ÜST DUYURU BANDI (Organikasap Tarzı Güven & Lojistik Bandı) -->
-  <div class="bg-brand-greenDark text-white text-xs sm:text-sm py-2 overflow-hidden border-b border-white/10">
+  <!-- ÜST DUYURU BANDI (Çok Dikkat Çekici Güven & Lojistik Kayan Bandı) -->
+  <div class="bg-gradient-to-r from-brand-greenDark via-brand-green to-brand-greenDark text-white text-xs sm:text-sm py-2.5 overflow-hidden border-b-2 border-brand-wheat shadow-sm">
     <div class="animate-marquee flex items-center space-x-8">
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Elbistan İçi Aynı Gün Hızlı Teslimat</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> %100 Katkısız, Doğal ve Ev Yapımı Köy Ürünleri</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Şehir Dışına Özel Vakumlu & Isı Yalıtımlı Kargo</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Online Ödeme Yok! Siparişinizi WhatsApp'tan Kolayca Oluşturun</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-wheat text-stone-900 text-[10px] uppercase">HIZLI</span> Elbistan İçi Aynı Gün Kapınıza Teslimat!</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-whatsapp text-white text-[10px] uppercase">%100 DOĞAL</span> Katkısız, Ev Yapımı Gerçek Köy Ürünleri</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-wheat text-stone-900 text-[10px] uppercase">81 İLE KARGO</span> Şehir Dışına Özel Vakumlu & Buz Akülü Kargo</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-whatsapp text-white text-[10px] uppercase">KOLAY SİPARİŞ</span> Online Ödeme Yok! WhatsApp'tan Tek Tıkla Sipariş Verin</span>
       <!-- Tekrar (Sonsuz kayma için) -->
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Elbistan İçi Aynı Gün Hızlı Teslimat</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> %100 Katkısız, Doğal ve Ev Yapımı Köy Ürünleri</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Şehir Dışına Özel Vakumlu & Isı Yalıtımlı Kargo</span>
-      <span class="flex items-center gap-2 font-medium"><span class="text-brand-wheat">✦</span> Online Ödeme Yok! Siparişinizi WhatsApp'tan Kolayca Oluşturun</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-wheat text-stone-900 text-[10px] uppercase">HIZLI</span> Elbistan İçi Aynı Gün Kapınıza Teslimat!</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-whatsapp text-white text-[10px] uppercase">%100 DOĞAL</span> Katkısız, Ev Yapımı Gerçek Köy Ürünleri</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-wheat text-stone-900 text-[10px] uppercase">81 İLE KARGO</span> Şehir Dışına Özel Vakumlu & Buz Akülü Kargo</span>
+      <span class="flex items-center gap-2 font-extrabold tracking-wide"><span class="px-1.5 py-0.5 rounded bg-brand-whatsapp text-white text-[10px] uppercase">KOLAY SİPARİŞ</span> Online Ödeme Yok! WhatsApp'tan Tek Tıkla Sipariş Verin</span>
     </div>
   </div>
 
-  <!-- HEADER / ÜST MENÜ -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 transition-all">
+  <!-- HEADER / ÜST MENÜ (Aşağı kaydırılırken üstte sabit kalan alan + Hızlı Sayfa Navigasyon Sekmeleri) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs transition-all">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
         
@@ -352,7 +379,7 @@
       </div>
 
       <!-- Mobil Arama Çubuğu -->
-      <div class="pb-2.5 md:hidden">
+      <div class="pb-2 md:hidden">
         <div class="relative w-full">
           <input 
             type="text" 
@@ -365,6 +392,36 @@
           </svg>
         </div>
       </div>
+
+      <!-- YUKARIDA SABİT KALAN HIZLI MENÜ SEKMELERİ (Tüm Ürünler, Doğallık İlkemiz, Yorumlar, S.S.S, İletişim & Harita) -->
+      <nav aria-label="Sayfa İçi Hızlı Menü" class="border-t border-stone-200/70 py-2 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-2">
+          <a href="#urunler" onclick="filterCategory('all')" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-brand-green text-white shadow-2xs hover:bg-brand-greenDark transition-colors">
+            <span>🧺</span>
+            <span>Tüm Ürünler</span>
+          </a>
+          <a href="#dogallik" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
+            <span>🌿</span>
+            <span>Doğallık & Hijyen</span>
+          </a>
+          <a href="#yorumlar" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
+            <span>⭐</span>
+            <span>Müşteri Yorumları</span>
+          </a>
+          <a href="#sss" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
+            <span>❓</span>
+            <span>Sıkça Sorulanlar</span>
+          </a>
+          <a href="#iletisim" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-wheatLight text-stone-900 border border-brand-wheat/50 hover:bg-brand-wheat/30 transition-colors">
+            <span>📍</span>
+            <span>İletişim & Konum</span>
+          </a>
+          <button onclick="openDirectWhatsApp('Merhaba Ayşem Gıda, hızlı sipariş vermek istiyorum.')" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-brand-whatsapp text-white shadow-2xs hover:bg-brand-whatsappDark transition-colors">
+            <span>💬</span>
+            <span>WhatsApp Sipariş</span>
+          </button>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -448,9 +505,13 @@
       </div>
     </section>
 
-    <!-- 2. YATAY KATEGORİ NAVİGASYONU (Sticky Başparmak Ergonomili Pills/Chips) -->
-    <section id="urunler" class="sticky top-[104px] md:top-[80px] z-30 bg-brand-stone/95 backdrop-blur-md border-b border-stone-200/80 py-2.5 sm:py-3.5">
+    <!-- 2. YATAY KATEGORİ FİLTRELERİ (Sayfa ile birlikte normal kayar, üstte sabit kalıp ekranı daraltmaz) -->
+    <section id="urunler" class="bg-brand-stone border-b border-stone-200/80 py-3 sm:py-4 scroll-mt-36">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-brand-green">Ürün Kategorisi Seçin:</span>
+          <span class="text-[11px] text-stone-400 sm:hidden">Sağa kaydırın →</span>
+        </div>
         <div id="categoryPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
           <!-- JS ile dinamik render edilir, ilk yükleme için varsayılan butonlar -->
           <button onclick="filterCategory('all')" data-cat="all" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all bg-brand-green text-white shadow-sm">
@@ -555,8 +616,23 @@
       </div>
     </section>
 
+    <!-- ARA KAYAN BAND 1 (Çok Dikkat Çekici Yöresel Ürün & Sipariş Bandı) -->
+    <div class="bg-brand-wheat text-stone-950 py-3 overflow-hidden border-y-2 border-brand-green shadow-md">
+      <div class="animate-marquee-reverse flex items-center space-x-8 text-xs sm:text-sm font-extrabold uppercase tracking-wider">
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-green text-white text-[11px]">TAZE GÜNLÜK</span> 🧀 Elbistan Köy Tereyağı & Salamura Peynir</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-stone-900 text-brand-wheat text-[11px]">DOĞAL BESİ</span> 🐓 Serbest Gezen Köy Tavuğu & Organik Yumurta</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-green text-white text-[11px]">EV YAPIMI</span> 🌶️ Güneş Kurusu Elbistan Salçası & Maraş Cips Tarhana</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-stone-900 text-brand-wheat text-[11px]">SAF LEZZET</span> 🍇 Glikozsuz Cevizli Sucuk & Odun Ateşinde Pekmez</span>
+        <!-- Tekrar -->
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-green text-white text-[11px]">TAZE GÜNLÜK</span> 🧀 Elbistan Köy Tereyağı & Salamura Peynir</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-stone-900 text-brand-wheat text-[11px]">DOĞAL BESİ</span> 🐓 Serbest Gezen Köy Tavuğu & Organik Yumurta</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-green text-white text-[11px]">EV YAPIMI</span> 🌶️ Güneş Kurusu Elbistan Salçası & Maraş Cips Tarhana</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-stone-900 text-brand-wheat text-[11px]">SAF LEZZET</span> 🍇 Glikozsuz Cevizli Sucuk & Odun Ateşinde Pekmez</span>
+      </div>
+    </div>
+
     <!-- 4. DOĞALLIK, HİJYEN & PAKETLEME İLKEMİZ (Organikasap Tarzı Güven Kurgusu) -->
-    <section class="py-10 sm:py-14 bg-white border-y border-stone-200/80">
+    <section id="dogallik" class="py-10 sm:py-14 bg-white border-b border-stone-200/80 scroll-mt-36">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <span class="text-xs font-bold uppercase tracking-widest text-brand-green bg-brand-greenLight px-3 py-1 rounded-full">
@@ -619,7 +695,7 @@
     </section>
 
     <!-- 5. MÜŞTERİ MEMNUNİYETİ (Elbistan İçi ve Şehir Dışı Yorumlar) -->
-    <section class="py-10 sm:py-14 bg-brand-stone">
+    <section id="yorumlar" class="py-10 sm:py-14 bg-brand-stone scroll-mt-36">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-2">
           <div>
@@ -689,8 +765,21 @@
       </div>
     </section>
 
+    <!-- ARA KAYAN BAND 2 (Çok Dikkat Çekici Hızlı Teslimat & WhatsApp Çağrı Bandı) -->
+    <div class="bg-gradient-to-r from-brand-greenDark via-brand-green to-brand-greenDark text-white py-3.5 overflow-hidden border-y-2 border-brand-wheat shadow-md">
+      <div class="animate-marquee flex items-center space-x-8 text-xs sm:text-sm font-extrabold tracking-wide">
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] uppercase">WHATSAPP HATTI</span> 💬 Sipariş İçin Sağ Alttaki WhatsApp İkonuna Tıklayın!</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-wheat text-stone-900 text-[11px] uppercase">ELBİSTAN İÇİ</span> 🛵 Güneşli, Kızılcaoba, Pınarbaşı ve Tüm Mahallelere Aynı Gün Teslimat</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] uppercase">SOĞUK ZİNCİR</span> 📦 Türkiye'nin 81 İline Vakumlu & Strafor Kutulu Kargo</span>
+        <!-- Tekrar -->
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] uppercase">WHATSAPP HATTI</span> 💬 Sipariş İçin Sağ Alttaki WhatsApp İkonuna Tıklayın!</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-wheat text-stone-900 text-[11px] uppercase">ELBİSTAN İÇİ</span> 🛵 Güneşli, Kızılcaoba, Pınarbaşı ve Tüm Mahallelere Aynı Gün Teslimat</span>
+        <span class="flex items-center gap-2"><span class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] uppercase">SOĞUK ZİNCİR</span> 📦 Türkiye'nin 81 İline Vakumlu & Strafor Kutulu Kargo</span>
+      </div>
+    </div>
+
     <!-- 6. KONUM, İLETİŞİM & YEREL SEO BİLGİ BÖLÜMÜ -->
-    <section id="iletisim" class="py-10 sm:py-14 bg-white border-t border-stone-200">
+    <section id="iletisim" class="py-10 sm:py-14 bg-white border-t border-stone-200 scroll-mt-36">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           
@@ -932,31 +1021,41 @@
     </div>
   </aside>
 
-  <!-- SAĞ ALT SABİT TELEFON ARAMA VE WHATSAPP İKONLARI (MOBİL VE MASAÜSTÜ) -->
-  <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-center gap-3">
-    <!-- Telefon Arama İkon Butonu -->
-    <a 
-      href="tel:+905420000000"
-      class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-brand-green hover:bg-brand-greenDark active:scale-95 text-white flex items-center justify-center shadow-xl border-2 border-white transition-all"
-      aria-label="Hemen Ara"
-      title="Mağazayı Hemen Ara"
-    >
-      <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-      </svg>
-    </a>
+  <!-- SAĞ ALT SABİT TELEFON ARAMA VE WHATSAPP İKONLARI (BÜYÜYÜP KÜÇÜLEN VE ÇOK DİKKAT ÇEKEN TASARIM) -->
+  <div class="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-50 flex flex-col items-center gap-4">
+    
+    <!-- Telefon Arama İkon Butonu (Büyüyüp Küçülen & Halka Efektli) -->
+    <div class="relative flex items-center justify-center">
+      <span class="absolute inline-flex h-full w-full rounded-full bg-brand-wheat opacity-60 animate-ping"></span>
+      <a 
+        href="tel:+905420000000"
+        class="animate-attention-delayed relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-green hover:bg-brand-greenDark text-white flex flex-col items-center justify-center shadow-[0_8px_25px_rgba(45,90,39,0.55)] border-2 border-brand-wheat transition-all"
+        aria-label="Hemen Ara"
+        title="Mağazayı Hemen Ara"
+      >
+        <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        <span class="text-[9px] font-extrabold uppercase tracking-tighter leading-none mt-0.5">ARA</span>
+      </a>
+    </div>
 
-    <!-- WhatsApp İkon Butonu -->
-    <button 
-      onclick="openDirectWhatsApp('Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.')"
-      class="w-13 h-13 sm:w-15 sm:h-15 p-3.5 sm:p-4 rounded-full bg-brand-whatsapp hover:bg-brand-whatsappDark active:scale-95 text-white flex items-center justify-center shadow-xl border-2 border-white transition-all"
-      aria-label="WhatsApp Sipariş Hattı"
-      title="WhatsApp Sipariş Hattı"
-    >
-      <svg class="w-6 h-6 sm:w-7 sm:h-7 fill-current" viewBox="0 0 24 24">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
-      </svg>
-    </button>
+    <!-- WhatsApp İkon Butonu (Büyüyüp Küçülen & Yeşil Parlama Efektli) -->
+    <div class="relative flex items-center justify-center">
+      <span class="absolute inline-flex h-full w-full rounded-full bg-brand-whatsapp opacity-75 animate-ping"></span>
+      <button 
+        onclick="openDirectWhatsApp('Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.')"
+        class="animate-attention relative w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-brand-whatsapp hover:bg-brand-whatsappDark text-white flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.65)] border-2 border-white transition-all"
+        aria-label="WhatsApp Sipariş Hattı"
+        title="WhatsApp Sipariş Hattı"
+      >
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24">
+          <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+        </svg>
+        <span class="text-[8px] sm:text-[9px] font-extrabold uppercase tracking-tighter leading-none mt-0.5">SİPARİŞ</span>
+      </button>
+    </div>
+
   </div>
 
   <!-- JAVASCRIPT: ÜRÜN PORTFÖYÜ, FİLTRELEME VE WHATSAPP URL PARAMETRE YÖNLENDİRME MİMARİSİ -->
