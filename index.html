@@ -393,33 +393,21 @@
         </div>
       </div>
 
-      <!-- YUKARIDA SABİT KALAN HIZLI MENÜ SEKMELERİ (Tüm Ürünler, Doğallık İlkemiz, Yorumlar, S.S.S, İletişim & Harita) -->
+      <!-- YUKARIDA SABİT KALAN HIZLI MENÜ SEKMELERİ (Tüm Ürünler, Müşteri Yorumları, İletişim & Konum) -->
       <nav aria-label="Sayfa İçi Hızlı Menü" class="border-t border-stone-200/70 py-2 overflow-x-auto no-scrollbar">
-        <div class="flex items-center gap-2">
-          <a href="#urunler" onclick="filterCategory('all')" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-brand-green text-white shadow-2xs hover:bg-brand-greenDark transition-colors">
+        <div class="grid grid-cols-3 sm:flex sm:items-center gap-2">
+          <a href="#urunler" onclick="filterCategory('all')" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
             <span>🧺</span>
-            <span>Tüm Ürünler</span>
+            <span class="truncate">Tüm Ürünler</span>
           </a>
-          <a href="#dogallik" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
-            <span>🌿</span>
-            <span>Doğallık & Hijyen</span>
-          </a>
-          <a href="#yorumlar" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
+          <a href="#yorumlar" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
             <span>⭐</span>
-            <span>Müşteri Yorumları</span>
+            <span class="truncate">Müşteri Yorumları</span>
           </a>
-          <a href="#sss" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-stone text-stone-700 border border-stone-200 hover:border-brand-green hover:text-brand-green transition-colors">
-            <span>❓</span>
-            <span>Sıkça Sorulanlar</span>
-          </a>
-          <a href="#iletisim" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-brand-wheatLight text-stone-900 border border-brand-wheat/50 hover:bg-brand-wheat/30 transition-colors">
+          <a href="#iletisim" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
             <span>📍</span>
-            <span>İletişim & Konum</span>
+            <span class="truncate">İletişim & Konum</span>
           </a>
-          <button onclick="openDirectWhatsApp('Merhaba Ayşem Gıda, hızlı sipariş vermek istiyorum.')" class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-brand-whatsapp text-white shadow-2xs hover:bg-brand-whatsappDark transition-colors">
-            <span>💬</span>
-            <span>WhatsApp Sipariş</span>
-          </button>
         </div>
       </nav>
     </div>
