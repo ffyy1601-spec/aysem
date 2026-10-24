@@ -419,7 +419,7 @@
         <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-2 border-brand-wheat/40 min-h-[230px] sm:min-h-[340px] flex items-center">
           <!-- Arka Plan Görseli -->
           <img 
-            src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80" 
+            src="sitefoto/maraştarhanası.jpg" 
             alt="Ayşem Gıda Elbistan Doğal Köy Ürünleri ve Şarküteri" 
             class="absolute inset-0 w-full h-full object-cover scale-105"
           />
@@ -470,25 +470,21 @@
             <span>🧺</span>
             <span>Tüm Ürünler</span>
           </button>
-          <button onclick="filterCategory('sut')" data-cat="sut" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
-            <span>🧀</span>
-            <span>Köy Sütü & Süt Ürünleri</span>
-          </button>
-          <button onclick="filterCategory('tavuk')" data-cat="tavuk" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
-            <span>🥚</span>
-            <span>Köy Tavuğu & Organik Yumurta</span>
-          </button>
           <button onclick="filterCategory('maras')" data-cat="maras" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
             <span>🌶️</span>
             <span>Elbistan & Maraş Ev Lezzetleri</span>
           </button>
           <button onclick="filterCategory('kahvalti')" data-cat="kahvalti" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
             <span>🍯</span>
-            <span>Organik Kahvaltılık & Tatlılar</span>
+            <span>Pekmez, Pestil & Tatlılar</span>
           </button>
-          <button onclick="filterCategory('kuruyemis')" data-cat="kuruyemis" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
-            <span>🌰</span>
-            <span>Köy Kuruyemişi & Taze Kahve</span>
+          <button onclick="filterCategory('sut')" data-cat="sut" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
+            <span>🧀</span>
+            <span>Köy Sütü & Süt Ürünleri</span>
+          </button>
+          <button onclick="filterCategory('tavuk')" data-cat="tavuk" class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-white text-stone-700 border border-stone-200 hover:border-brand-green">
+            <span>🐓</span>
+            <span>Gezen Köy Tavuğu</span>
           </button>
         </div>
       </div>
@@ -509,7 +505,7 @@
             </p>
           </div>
           <span id="productCountBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-greenLight text-brand-green shrink-0">
-            18 Ürün
+            16 Ürün
           </span>
         </div>
 
@@ -517,36 +513,36 @@
         <!-- SEO İÇİN STATİK ÖN-RENDER (Googlebot JS çalıştırmadan da tüm ürün başlıklarını, fiyatlarını ve Elbistan anahtar kelimelerini doğrudan HTML içinde indeksler) -->
         <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Geleneksel Köy Tereyağı (Yayık) - Elbistan Köy Mandırası</h3>
-            <p class="text-xs text-stone-600">%100 Saf Tereyağı - 1 Kg - 420 ₺</p>
+            <h3 class="font-bold text-sm">Geleneksel Köy Tereyağı - Elbistan Köy Mandırası</h3>
+            <p class="text-xs text-stone-600">%100 Saf Tereyağı - 1 Kg - 450 ₺</p>
           </article>
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Katkısız Tam Yağlı Köy Peyniri - Geleneksel Ev Yapımı</h3>
-            <p class="text-xs text-stone-600">Günlük Taze Salamura Köy Peyniri - 1 Kg - 290 ₺</p>
+            <h3 class="font-bold text-sm">Doğal Ev Yapımı Köy Peyniri - Geleneksel Salamura</h3>
+            <p class="text-xs text-stone-600">Katkısız Köy Peyniri - 1 Kg - 290 ₺</p>
           </article>
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Doğal Gezen Köy Tavuğu (Temizlenmiş) - Elbistan Köy Besisi</h3>
-            <p class="text-xs text-stone-600">Serbest Gezen Doğal Köy Tavuğu - Adet (~2 Kg) - 480 ₺</p>
+            <h3 class="font-bold text-sm">Doğal Gezen Köy Tavuğu - Elbistan Köy Besisi</h3>
+            <p class="text-xs text-stone-600">Serbest Gezen Doğal Köy Tavuğu - Adet - 480 ₺</p>
           </article>
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Günlük Organik Köy Yumurtası - Elbistan Köyleri</h3>
-            <p class="text-xs text-stone-600">Doğal Yem & Mera Günlük Toplanan Köy Yumurtası - 30'lu Koli - 210 ₺</p>
-          </article>
-          <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Geleneksel Maraş Cips Tarhanası - Ev Yapımı Kıtır</h3>
-            <p class="text-xs text-stone-600">Güneşte Kurutulmuş Elbistan Maraş Tarhanası - 500 Gr - 240 ₺</p>
-          </article>
-          <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Elbistan Ev Yapımı Biber Salçası (Tatlı/Acı)</h3>
+            <h3 class="font-bold text-sm">Elbistan Ev Yapımı Biber Salçası</h3>
             <p class="text-xs text-stone-600">Güneş Kurusu %100 Doğal Ev Salçası - 1 Kg - 280 ₺</p>
           </article>
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Cevizli Üzüm Sucuğu (Köme / Pestil) - Kelebek Cevizli</h3>
-            <p class="text-xs text-stone-600">Glikozsuz Saf Şıra Elbistan Cevizli Sucuk - 500 Gr - 295 ₺</p>
+            <h3 class="font-bold text-sm">Ev Yapımı Doğal Domates Salçası</h3>
+            <p class="text-xs text-stone-600">Katkısız Ev Usulü Domates Salçası - 1 Kg - 220 ₺</p>
           </article>
           <article class="bg-white rounded-2xl border border-stone-200 p-3">
-            <h3 class="font-bold text-sm">Odun Ateşinde Saf Üzüm & Dut Pekmezi</h3>
-            <p class="text-xs text-stone-600">Şeker İlavesiz Doğal Köy Pekmezi - 1 Kg - 310 ₺</p>
+            <h3 class="font-bold text-sm">Geleneksel Maraş Tarhanası & Elbistan Sıkma Tarhana</h3>
+            <p class="text-xs text-stone-600">Güneşte Kurutulmuş Ev Yapımı Tarhana - 500 Gr - 240 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Cevizli Sucuk, Cevizli Muska & Pestil</h3>
+            <p class="text-xs text-stone-600">Glikozsuz Saf Şıra Yöresel Tatlılar - 500 Gr - 295 ₺</p>
+          </article>
+          <article class="bg-white rounded-2xl border border-stone-200 p-3">
+            <h3 class="font-bold text-sm">Odun Ateşinde Saf Dut Pekmezi & Üzüm Pekmezi</h3>
+            <p class="text-xs text-stone-600">Şeker İlavesiz Doğal Köy Pekmezi - 1 Kg - 320 ₺</p>
           </article>
         </div>
 
@@ -1018,203 +1014,180 @@
     // Kategori Başlık Haritası
     const CATEGORY_TITLES = {
       all: "Günün En Taze Köy Ürünleri",
-      sut: "Köy Sütü ve Süt Ürünleri",
-      tavuk: "Köy Tavuğu ve Organik Yumurta",
       maras: "Elbistan & Maraş Ev Yapımı Lezzetler",
-      kahvalti: "Organik Kahvaltılık & Tatlılar",
-      kuruyemis: "Köy Kuruyemişi & Taze Kahve"
+      kahvalti: "Pekmez, Pestil & Doğal Tatlılar",
+      sut: "Köy Sütü ve Süt Ürünleri",
+      tavuk: "Doğal Gezen Köy Tavuğu"
     };
 
-    // Ürün Veritabanı (5 Ana Kategori - Elbistan & Maraş Köy Konsepti)
+    // Ürün Veritabanı (Sadece sitefoto klasöründeki 16 gerçek ürün görseli)
     const PRODUCTS = [
-      // 1. Köy Sütü ve Süt Ürünleri
+      // 1. Elbistan & Maraş Ev Yapımı Lezzetler
       {
-        id: "sut-1",
-        name: "Geleneksel Köy Tereyağı (Yayık)",
-        category: "sut",
-        unit: "1 Kg",
-        price: 420,
-        badge: "%100 Saf Tereyağı",
-        origin: "Elbistan Köy Mandırası",
-        image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "sut-2",
-        name: "Katkısız Tam Yağlı Köy Peyniri",
-        category: "sut",
-        unit: "1 Kg (Salamura)",
-        price: 290,
-        badge: "Günlük Taze",
-        origin: "Geleneksel Ev Yapımı",
-        image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "sut-3",
-        name: "Taze Köy Çökeleği & Lor",
-        category: "sut",
-        unit: "1 Kg",
-        price: 160,
-        badge: "Kahvaltılık & Böreklik",
-        origin: "Katkısız Doğal",
-        image: "https://images.unsplash.com/photo-1559561853-08451507cbe7?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "sut-4",
-        name: "Doğal Köy Kaymağı (İnek/Manda)",
-        category: "sut",
-        unit: "500 Gr Kase",
-        price: 260,
-        badge: "Günlük Süt Kaymağı",
-        origin: "Elbistan Yöresel",
-        image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=600&q=80"
-      },
-
-      // 2. Köy Tavuğu ve Organik Yumurta
-      {
-        id: "tavuk-1",
-        name: "Doğal Gezen Köy Tavuğu (Temizlenmiş)",
-        category: "tavuk",
-        unit: "Adet (~1.8 - 2.2 Kg)",
-        price: 480,
-        badge: "Serbest Gezen",
-        origin: "Elbistan Köy Besisi",
-        image: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "tavuk-2",
-        name: "Günlük Organik Köy Yumurtası",
-        category: "tavuk",
-        unit: "30'lu Koli",
-        price: 210,
-        badge: "Günlük Toplanan",
-        origin: "Doğal Yem & Mera",
-        image: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "tavuk-3",
-        name: "Taze Günlük Köy Yumurtası (15'li)",
-        category: "tavuk",
-        unit: "15'li Paket",
-        price: 110,
-        badge: "Sarı Özlü",
-        origin: "Elbistan Köyleri",
-        image: "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=600&q=80"
-      },
-
-      // 3. Elbistan & Maraş Ev Yapımı Lezzetler
-      {
-        id: "maras-1",
-        name: "Geleneksel Maraş Cips Tarhanası",
-        category: "maras",
-        unit: "500 Gr Özel Paket",
-        price: 240,
-        badge: "Güneşte Kurutulmuş",
-        origin: "Ev Yapımı Kıtır",
-        image: "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "maras-2",
-        name: "Elbistan Ev Yapımı Biber Salçası (Tatlı/Acı)",
+        id: "urun-1",
+        name: "Ev Yapımı Doğal Biber Salçası",
         category: "maras",
         unit: "1 Kg",
         price: 280,
         badge: "Güneş Kurusu",
-        origin: "%100 Doğal Ev Salçası",
-        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80"
+        origin: "Elbistan Ev Yapımı",
+        image: "sitefoto/bibersalçası.jpg"
       },
       {
-        id: "maras-3",
+        id: "urun-2",
         name: "Ev Yapımı Doğal Domates Salçası",
         category: "maras",
         unit: "1 Kg",
-        price: 210,
-        badge: "Katkısız Ev Usulü",
+        price: 220,
+        badge: "%100 Katkısız",
         origin: "Elbistan Tarla Domatesi",
-        image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=600&q=80"
+        image: "sitefoto/domatessalçası.jpg"
       },
       {
-        id: "maras-4",
-        name: "Cevizli Üzüm Sucuğu (Köme / Pestil)",
+        id: "urun-3",
+        name: "Geleneksel Maraş Cips Tarhanası",
         category: "maras",
         unit: "500 Gr",
-        price: 295,
-        badge: "Glikozsuz Saf Şıra",
-        origin: "Kelebek Cevizli",
-        image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80"
+        price: 240,
+        badge: "Güneşte Kurutulmuş",
+        origin: "Ev Yapımı Kıtır",
+        image: "sitefoto/maraştarhanası.jpg"
       },
       {
-        id: "maras-5",
-        name: "Taş Değirmenlik Maraş Dövmesi & Firik",
+        id: "urun-4",
+        name: "Elbistan Sıkma Tarhana",
         category: "maras",
         unit: "1 Kg",
-        price: 120,
-        badge: "Yöresel Bakliyat",
-        origin: "Elbistan Ovası",
-        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+        price: 230,
+        badge: "Yöresel Çorbalık",
+        origin: "Elbistan Köy Usulü",
+        image: "sitefoto/elbistansıkmatarhana.jpg"
+      },
+      {
+        id: "urun-5",
+        name: "Yöresel Elbistan Çemeni",
+        category: "maras",
+        unit: "500 Gr Kase",
+        price: 195,
+        badge: "Kahvaltılık Özel",
+        origin: "Geleneksel Ev Yapımı",
+        image: "sitefoto/elbistançemeni.jpg"
+      },
+      {
+        id: "urun-6",
+        name: "Ev Yapımı Köy Eriştesi",
+        category: "maras",
+        unit: "1 Kg",
+        price: 175,
+        badge: "Bol Köy Yumurtalı",
+        origin: "El Kesimi Doğal",
+        image: "sitefoto/evyapımıerişte.jpg"
+      },
+      {
+        id: "urun-7",
+        name: "Ev Yapımı İpek Pul Biber",
+        category: "maras",
+        unit: "500 Gr",
+        price: 210,
+        badge: "Halis Maraş Biberi",
+        origin: "%100 Doğal",
+        image: "sitefoto/evyapımıpulbiber.jpg"
       },
 
-      // 4. Organik Kahvaltılık & Tatlılar
+      // 2. Pekmez, Pestil & Doğal Tatlılar
       {
-        id: "kahvalti-1",
-        name: "Odun Ateşinde Saf Üzüm & Dut Pekmezi",
+        id: "urun-8",
+        name: "Cevizli Üzüm Sucuğu (Köme)",
         category: "kahvalti",
-        unit: "1 Kg Cam Kavanoz",
+        unit: "500 Gr",
+        price: 295,
+        badge: "Kelebek Cevizli",
+        origin: "Glikozsuz Saf Şıra",
+        image: "sitefoto/cevizlisucuk.jpg"
+      },
+      {
+        id: "urun-9",
+        name: "Cevizli Muska Tatlısı (Sarma Pestil)",
+        category: "kahvalti",
+        unit: "500 Gr",
         price: 310,
-        badge: "Odun Ateşi",
-        origin: "Şeker İlavesiz",
-        image: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80"
+        badge: "Bol Ceviz Dolgulu",
+        origin: "Doğal Enerji Kaynağı",
+        image: "sitefoto/cevizlimuska.jpg"
       },
       {
-        id: "kahvalti-2",
-        name: "Taş Değirmen Çifte Kavrulmuş Tahin",
+        id: "urun-10",
+        name: "Geleneksel Yaprak Pestil",
         category: "kahvalti",
-        unit: "900 Gr",
-        price: 250,
-        badge: "%100 Yerli Susam",
-        origin: "Katkısız Saf Tahin",
-        image: "https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=600&q=80"
+        unit: "500 Gr",
+        price: 240,
+        badge: "Güneş Kurusu",
+        origin: "Katkısız Meyve Özü",
+        image: "sitefoto/pastil.jpg"
       },
       {
-        id: "kahvalti-3",
-        name: "Katkısız Ev Yapımı Kayısı & Vişne Reçeli",
+        id: "urun-11",
+        name: "Odun Ateşinde Saf Dut Pekmezi",
         category: "kahvalti",
-        unit: "750 Gr Kavanoz",
+        unit: "1 Kg Kavanoz",
+        price: 330,
+        badge: "Odun Ateşinde",
+        origin: "Şeker İlavesiz Saf",
+        image: "sitefoto/dutpekmezi.jpg"
+      },
+      {
+        id: "urun-12",
+        name: "Odun Ateşinde Doğal Üzüm Pekmezi",
+        category: "kahvalti",
+        unit: "1 Kg Kavanoz",
+        price: 320,
+        badge: "%100 Saf Üzüm",
+        origin: "Geleneksel Köy Usulü",
+        image: "sitefoto/üzümpekmezi.jpg"
+      },
+      {
+        id: "urun-13",
+        name: "Doğal Köy Dut Kurusu",
+        category: "kahvalti",
+        unit: "500 Gr",
         price: 185,
-        badge: "Ev Yapımı",
-        origin: "Elbistan Bahçe Meyvesi",
-        image: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        id: "kahvalti-4",
-        name: "Doğal Süzme Çiçek Balı (Karakovan)",
-        category: "kahvalti",
-        unit: "850 Gr",
-        price: 490,
-        badge: "Analizli Saf Bal",
-        origin: "Elbistan Kırsalı",
-        image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=600&q=80"
+        badge: "Yeni Mahsul",
+        origin: "Ağaçta Kurutulmuş",
+        image: "sitefoto/dutkurusu.jpg"
       },
 
-      // 5. Köy Kuruyemişi & Taze Kahve
+      // 3. Köy Sütü ve Süt Ürünleri
       {
-        id: "kuruyemis-1",
-        name: "İnce Kabuklu Yöresel Köy Cevizi",
-        category: "kuruyemis",
-        unit: "1 Kg (Kabuklu / İç)",
-        price: 270,
-        badge: "Yeni Mahsul",
-        origin: "Elbistan Yerli Ceviz",
-        image: "https://images.unsplash.com/photo-1563412885-139e4045ec52?auto=format&fit=crop&w=600&q=80"
+        id: "urun-14",
+        name: "Geleneksel Yayık Köy Tereyağı",
+        category: "sut",
+        unit: "1 Kg",
+        price: 450,
+        badge: "%100 Saf Tereyağı",
+        origin: "Elbistan Köy Mandırası",
+        image: "sitefoto/tereyağı.jpg"
       },
       {
-        id: "kuruyemis-2",
-        name: "Taze Çekilmiş Türk Kahvesi & Menengiç",
-        category: "kuruyemis",
-        unit: "250 Gr Paket",
-        price: 145,
-        badge: "Günlük Çekim",
-        origin: "Yoğun Aromalı",
-        image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80"
+        id: "urun-15",
+        name: "Katkısız Ev Yapımı Köy Peyniri",
+        category: "sut",
+        unit: "1 Kg Bidon/Kavanoz",
+        price: 290,
+        badge: "Günlük Taze Süt",
+        origin: "Geleneksel Salamura",
+        image: "sitefoto/peynir.jpg"
+      },
+
+      // 4. Doğal Gezen Köy Tavuğu
+      {
+        id: "urun-16",
+        name: "Doğal Gezen Köy Tavuğu (Temizlenmiş)",
+        category: "tavuk",
+        unit: "Adet (~2 Kg)",
+        price: 480,
+        badge: "Serbest Gezen",
+        origin: "Elbistan Köy Besisi",
+        image: "sitefoto/köytavuğu.jpg"
       }
     ];
 
