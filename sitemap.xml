@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://aysemgida.com/</loc>
-    <lastmod>2026-10-22</lastmod>
+    <loc>https://aysemgida.com.tr/</loc>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/logo.jpg</image:loc>
+      <image:title>Ayşem Gıda Elbistan Yöresel Ürünler Logo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/bibersalçası.jpg</image:loc>
+      <image:title>Elbistan Ev Yapımı Güneş Kurusu Biber Salçası - Ayşem Gıda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/domatessalçası.jpg</image:loc>
+      <image:title>Ev Yapımı Doğal Domates Salçası - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/maraştarhanası.jpg</image:loc>
+      <image:title>Geleneksel Maraş Tarhanası - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/elbistansıkmatarhana.jpg</image:loc>
+      <image:title>Elbistan Sıkma Tarhana - Ayşem Gıda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/elbistançemeni.jpg</image:loc>
+      <image:title>Geleneksel Elbistan Çemeni - Ayşem Gıda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/evyapımıpulbiber.jpg</image:loc>
+      <image:title>Ev Yapımı İpek Pul Biber - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/evyapımıerişte.jpg</image:loc>
+      <image:title>Köy Yumurtalı Ev Yapımı Erişte - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/biberdolması.jpg</image:loc>
+      <image:title>Doğal Kuru Biber Dolması Dizme - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/kurukabakdolması.jpg</image:loc>
+      <image:title>Doğal Kuru Kabak Dolması Dizme - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/cevizlisucuk.jpg</image:loc>
+      <image:title>Doğal Cevizli Üzüm Sucuğu Köme - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/cevizlimuska.jpg</image:loc>
+      <image:title>Geleneksel Cevizli Muska Tatlısı - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/pastil.jpg</image:loc>
+      <image:title>Katkısız Yaprak Pestil - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/dutpekmezi.jpg</image:loc>
+      <image:title>Odun Ateşinde Saf Dut Pekmezi - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/üzümpekmezi.jpg</image:loc>
+      <image:title>Doğal Köy Üzüm Pekmezi - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/dutkurusu.jpg</image:loc>
+      <image:title>Doğal Güneş Kurusu Dut Kurusu - Ayşem Gıda Elbistan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/tereyağ.jpg</image:loc>
+      <image:title>Hakiki Elbistan Yayık Köy Tereyağı - Ayşem Gıda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/peynir.jpg</image:loc>
+      <image:title>Tam Yağlı Elbistan Köy Peyniri - Ayşem Gıda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://aysemgida.com.tr/sitefoto/köytavuğu.jpg</image:loc>
+      <image:title>Doğal Gezen Köy Tavuğu - Ayşem Gıda Elbistan</image:title>
+    </image:image>
   </url>
 </urlset>

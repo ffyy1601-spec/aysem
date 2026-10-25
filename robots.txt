@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aysemgida.com/sitemap.xml
+Sitemap: https://aysemgida.com.tr/sitemap.xml
