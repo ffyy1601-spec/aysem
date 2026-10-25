@@ -1755,6 +1755,47 @@
       try {
         const cached = localStorage.getItem("aysem_fiyat_cache");
         if (cached) applyPackedPrices(cached);
+        const cloudRes = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", { cache: "no-store" });
+        if (cloudRes.ok) {
+          const cloudJson = await cloudRes.json();
+          if (cloudJson && cloudJson.data) {
+            let changed = false;
+            Object.entries(cloudJson.data).forEach(([id, val]) => {
+              const prod = PRODUCTS.find((p) => p.id === id);
+              const numVal = Number(val);
+              if (prod && numVal > 0 && prod.price !== numVal) {
+                prod.price = numVal;
+                changed = true;
+              }
+            });
+            if (changed) {
+              renderProducts();
+              updateDrawerUI();
+            }
+            return;
+          }
+        }
+        const ghRes = await fetch(`https://api.github.com/repos/ffyy1601-spec/aysem/contents/fiyatlar.json?t=${Date.now()}`, { cache: "no-store" });
+        if (ghRes.ok) {
+          const ghData = await ghRes.json();
+          if (ghData && ghData.content) {
+            const priceObj = JSON.parse(atob(ghData.content.replace(/\s/g, "")));
+            let changed = false;
+            Object.entries(priceObj).forEach(([id, val]) => {
+              const prod = PRODUCTS.find((p) => p.id === id);
+              const numVal = Number(val);
+              if (prod && numVal > 0 && prod.price !== numVal) {
+                prod.price = numVal;
+                changed = true;
+              }
+            });
+            if (changed) {
+              renderProducts();
+              updateDrawerUI();
+            }
+            return;
+          }
+        }
         const res = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/GetValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}?t=${Date.now()}`);
         if (res.ok) {
           const data = await res.text();
@@ -1863,7 +1904,14 @@
       }
 
       try {
-        const res = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}/${packedString}`, {
+        const priceDataObj = {};
+        PRODUCTS.forEach((p) => { priceDataObj[p.id] = p.price; });
+        const res = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj })
+        });
+        if (false) fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}/${packedString}`, {
           method: "POST"
         });
         if (res.ok) {
