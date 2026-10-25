@@ -1440,7 +1440,7 @@
       emptyState.classList.add("hidden");
 
       grid.innerHTML = filtered
-        .map((product) => {
+        .map((product, idx) => {
           const qtyInCart = orderList[product.id] || 0;
           const safeName = product.name.replace(/'/g, "\\'");
           const safeUnit = product.unit.replace(/'/g, "\\'");
@@ -1453,7 +1453,7 @@
                   <img 
                     src="${product.image}" 
                     alt="${product.name} - Ayşem Gıda Elbistan" 
-                    loading="lazy"
+                    loading="${idx < 4 ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${idx < 4 ? 'high' : 'auto'}"
                     class="product-img w-full h-full object-cover"
                   />
                   <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-brand-green/95 text-white backdrop-blur-xs shadow-xs">
