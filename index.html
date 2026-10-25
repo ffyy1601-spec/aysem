@@ -1039,7 +1039,7 @@
       </div>
       <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-2">
         <p>© 2026 Ayşem Gıda (Elbistan / Kahramanmaraş). Tüm hakları saklıdır.</p>
-        <p>Siparişleriniz doğrudan WhatsApp hattımız üzerinden güvenle alınmaktadır.</p>
+        <p class="flex items-center gap-3"><span>Siparişleriniz doğrudan WhatsApp hattımız üzerinden güvenle alınmaktadır.</span> <button onclick="openPriceAdminModal()" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-stone-200 font-bold text-[11px] transition-colors">🔒 Fiyat Yönetimi</button></p>
       </div>
     </div>
   </footer>
@@ -1716,6 +1716,243 @@
       renderProducts();
       updateDrawerUI();
       setupSearchListeners();
+      loadCloudPrices();
+      if (window.location.hash === "#fiyat" || window.location.hash === "#admin") {
+        openPriceAdminModal();
+      }
+    });
+
+    // === ŞİFRELİ ÜRÜN FİYAT YÖNETİM PANELİ (SADECE FİYAT DEĞİŞTİRME) ===
+    const PRICE_CLOUD_KEY = "g6c6guf0";
+    const PRICE_CLOUD_ITEM = "aysem_fiyat_v1";
+    const ADMIN_PIN = "46elb46";
+    let isPriceAdminUnlocked = false;
+
+    function applyPackedPrices(packedStr) {
+      if (!packedStr || typeof packedStr !== "string") return;
+      const clean = packedStr.replace(/^"+|"+$/g, "").trim();
+      const parts = clean.split("_");
+      let changed = false;
+      parts.forEach((part) => {
+        const match = part.match(/^u(\d+)-(\d+(?:\.\d+)?)$/);
+        if (match) {
+          const prodId = "urun-" + match[1];
+          const newPrice = Number(match[2]);
+          const prod = PRODUCTS.find((p) => p.id === prodId);
+          if (prod && newPrice > 0 && prod.price !== newPrice) {
+            prod.price = newPrice;
+            changed = true;
+          }
+        }
+      });
+      if (changed) {
+        renderProducts();
+        updateDrawerUI();
+      }
+    }
+
+    async function loadCloudPrices() {
+      try {
+        const cached = localStorage.getItem("aysem_fiyat_cache");
+        if (cached) applyPackedPrices(cached);
+        const res = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/GetValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}?t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.text();
+          if (data && data.includes("u1-")) {
+            localStorage.setItem("aysem_fiyat_cache", data);
+            applyPackedPrices(data);
+          }
+        }
+      } catch (err) {
+        console.warn("Fiyat verisi okunamadı:", err);
+      }
+    }
+
+    function openPriceAdminModal() {
+      const modal = document.getElementById("priceAdminModal");
+      if (!modal) return;
+      modal.classList.remove("hidden");
+      if (isPriceAdminUnlocked) {
+        showPriceEditorScreen();
+      } else {
+        document.getElementById("pricePinScreen").classList.remove("hidden");
+        document.getElementById("priceEditorScreen").classList.add("hidden");
+        const pinInput = document.getElementById("adminPinInput");
+        if (pinInput) {
+          pinInput.value = "";
+          setTimeout(() => pinInput.focus(), 100);
+        }
+      }
+    }
+
+    function closePriceAdminModal() {
+      const modal = document.getElementById("priceAdminModal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function checkPriceAdminPin() {
+      const pinInput = document.getElementById("adminPinInput");
+      const errEl = document.getElementById("adminPinError");
+      if (!pinInput) return;
+      if (pinInput.value.trim() === ADMIN_PIN) {
+        isPriceAdminUnlocked = true;
+        if (errEl) errEl.classList.add("hidden");
+        showPriceEditorScreen();
+      } else {
+        if (errEl) errEl.classList.remove("hidden");
+      }
+    }
+
+    function showPriceEditorScreen() {
+      document.getElementById("pricePinScreen").classList.add("hidden");
+      const editorScreen = document.getElementById("priceEditorScreen");
+      editorScreen.classList.remove("hidden");
+      const listEl = document.getElementById("adminPriceListContainer");
+      listEl.innerHTML = PRODUCTS.map((prod) => `
+        <div class="flex items-center justify-between gap-3 p-2.5 sm:p-3 rounded-xl bg-brand-stone border border-stone-200">
+          <div class="flex items-center gap-2.5 min-w-0 flex-1">
+            <img src="${prod.image}" alt="${prod.name}" class="w-11 h-11 rounded-lg object-cover shrink-0 border border-stone-200" />
+            <div class="min-w-0">
+              <p class="font-bold text-xs sm:text-sm text-stone-900 truncate">${prod.name}</p>
+              <p class="text-[11px] text-stone-500 font-medium">Birim: ${prod.unit}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <input
+              type="number"
+              min="1"
+              step="1"
+              data-price-id="${prod.id}"
+              value="${prod.price}"
+              class="w-20 sm:w-24 px-2.5 py-2 text-right font-extrabold text-sm sm:text-base text-brand-green bg-white border-2 border-brand-green/40 rounded-xl focus:outline-none focus:border-brand-green"
+            />
+            <span class="font-extrabold text-sm text-stone-700">₺</span>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    async function saveAllProductPrices() {
+      const saveBtn = document.getElementById("savePricesBtn");
+      const statusEl = document.getElementById("savePricesStatus");
+      const inputs = document.querySelectorAll("input[data-price-id]");
+      const packedParts = [];
+
+      inputs.forEach((inp) => {
+        const id = inp.getAttribute("data-price-id");
+        const num = Math.round(Number(inp.value));
+        const prod = PRODUCTS.find((p) => p.id === id);
+        if (prod && num > 0) {
+          prod.price = num;
+        }
+      });
+
+      PRODUCTS.forEach((prod) => {
+        const numId = prod.id.replace("urun-", "");
+        packedParts.push(`u${numId}-${prod.price}`);
+      });
+
+      const packedString = packedParts.join("_");
+      localStorage.setItem("aysem_fiyat_cache", packedString);
+      renderProducts();
+      updateDrawerUI();
+
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Kaydediliyor...";
+      }
+
+      try {
+        const res = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}/${packedString}`, {
+          method: "POST"
+        });
+        if (res.ok) {
+          if (statusEl) {
+            statusEl.textContent = "✅ Tüm ürün fiyatları başarıyla güncellendi ve yayına alındı!";
+            statusEl.className = "text-xs sm:text-sm font-bold text-brand-green bg-brand-greenLight p-3 rounded-xl text-center block";
+          }
+        } else {
+          throw new Error("Sunucu yanıt vermedi");
+        }
+      } catch (e) {
+        if (statusEl) {
+          statusEl.textContent = "⚠️ Fiyatlar bu cihazda güncellendi, internet bağlantınızı kontrol edip tekrar deneyin.";
+          statusEl.className = "text-xs sm:text-sm font-bold text-amber-800 bg-amber-100 p-3 rounded-xl text-center block";
+        }
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "💾 Fiyatları Kaydet ve Yayınla";
+        }
+      }
+    }
+  </script>
+
+  <!-- ŞİFRELİ ÜRÜN FİYAT YÖNETİM PANELİ MODALI (SADECE FİYAT DEĞİŞTİRME) -->
+  <div id="priceAdminModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl border-2 border-brand-green w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+      <!-- Üst Başlık -->
+      <div class="p-4 sm:p-5 bg-brand-green text-white flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">🏷️</span>
+          <div>
+            <h3 class="font-serif font-bold text-base sm:text-lg leading-tight">Ayşem Gıda Fiyat Yönetimi</h3>
+            <p class="text-[11px] text-brand-greenLight/90">Sadece ürün fiyatlarını hızlıca güncelleyin</p>
+          </div>
+        </div>
+        <button onclick="closePriceAdminModal()" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-sm" aria-label="Kapat">✕</button>
+      </div>
+
+      <!-- 1. Aşama: Şifre Giriş Ekranı -->
+      <div id="pricePinScreen" class="p-6 space-y-4">
+        <div class="text-center space-y-1">
+          <div class="text-3xl mb-1">🔒</div>
+          <h4 class="font-bold text-base text-stone-900">Yönetici Şifresini Girin</h4>
+          <p class="text-xs text-stone-500">Ürün fiyatlarını değiştirmek için şifrenizi yazın.</p>
+        </div>
+        <div>
+          <input
+            type="password"
+            id="adminPinInput"
+            onkeydown="if(event.key==='Enter') checkPriceAdminPin()"
+            placeholder="Şifrenizi girin..."
+            class="w-full px-4 py-3 text-center font-bold text-base bg-brand-stone border-2 border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+          />
+          <p id="adminPinError" class="hidden text-xs font-bold text-red-600 text-center mt-2">❌ Hatalı şifre girdiniz, lütfen tekrar deneyin.</p>
+        </div>
+        <button
+          onclick="checkPriceAdminPin()"
+          class="w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-brand-greenDark text-white font-bold text-sm shadow-md transition-all"
+        >
+          Fiyat Listesini Aç →
+        </button>
+      </div>
+
+      <!-- 2. Aşama: Sadece Ürün Fiyatlarını Değiştirme Ekranı -->
+      <div id="priceEditorScreen" class="hidden flex-1 flex flex-col min-h-0">
+        <div class="px-4 py-2.5 bg-brand-wheatLight border-b border-brand-wheat/30 text-xs text-stone-700 font-medium shrink-0">
+          💡 Değiştirmek istediğiniz ürünün yanındaki kutucuğa yeni fiyatı yazıp en alttaki <strong>"Fiyatları Kaydet ve Yayınla"</strong> butonuna basın.
+        </div>
+
+        <div id="adminPriceListContainer" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2.5">
+          <!-- JS ile 18 ürün buraya yüklenir -->
+        </div>
+
+        <div class="p-4 bg-brand-stone border-t border-stone-200 space-y-2.5 shrink-0">
+          <p id="savePricesStatus" class="hidden"></p>
+          <button
+            id="savePricesBtn"
+            onclick="saveAllProductPrices()"
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-extrabold text-sm sm:text-base shadow-md transition-all"
+          >
+            💾 Fiyatları Kaydet ve Yayınla
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
     });
   </script>
 </body>
