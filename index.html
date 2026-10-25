@@ -514,7 +514,7 @@
             </p>
           </div>
           <span id="productCountBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-greenLight text-brand-green shrink-0">
-            16 Ürün
+            18 Ürün
           </span>
         </div>
 
@@ -773,7 +773,22 @@
                   <span class="w-8 h-8 rounded-lg bg-brand-greenLight text-brand-green flex items-center justify-center shrink-0 font-bold">📞</span>
                   <div>
                     <strong class="block text-stone-900">WhatsApp & Sipariş Hattı:</strong>
-                    <span class="text-stone-600 font-semibold">0543 430 54 70</span>
+                    <div class="mt-1 space-y-1.5 text-stone-700">
+                      <div class="flex items-center justify-between gap-2 bg-white px-2.5 py-1.5 rounded-lg border border-stone-200">
+                        <span><strong>İsmail Yörümez:</strong> 0543 430 54 70</span>
+                        <div class="flex items-center gap-1">
+                          <a href="tel:+905434305470" class="px-2 py-0.5 rounded bg-stone-900 text-white text-[11px] font-bold">Ara</a>
+                          <button onclick="openDirectWhatsApp('Merhaba İsmail Bey (Ayşem Gıda), ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.', '905434305470')" class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] font-bold">WhatsApp</button>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between gap-2 bg-white px-2.5 py-1.5 rounded-lg border border-stone-200">
+                        <span><strong>Ayşe Koca:</strong> 0541 664 01 43</span>
+                        <div class="flex items-center gap-1">
+                          <a href="tel:+905416640143" class="px-2 py-0.5 rounded bg-stone-900 text-white text-[11px] font-bold">Ara</a>
+                          <button onclick="openDirectWhatsApp('Merhaba Ayşe Hanım (Ayşem Gıda), ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.', '905416640143')" class="px-2 py-0.5 rounded bg-brand-whatsapp text-white text-[11px] font-bold">WhatsApp</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -968,25 +983,68 @@
       </div>
 
       <button 
-        onclick="sendDrawerListToWhatsApp()"
+        onclick="sendDrawerListToWhatsApp('905434305470')"
         class="w-full py-3.5 px-4 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all"
       >
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
         </svg>
-        <span>Sepeti WhatsApp ile Sipariş Ver</span>
+        <span>WhatsApp Sipariş: İsmail Yörümez (0543 430 54 70)</span>
+      </button>
+      <button onclick="sendDrawerListToWhatsApp('905416640143')" class="w-full py-3 px-4 rounded-xl bg-brand-green hover:bg-brand-greenDark text-white font-bold text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition-all">
+        <span>💬 WhatsApp Sipariş: Ayşe Koca (0541 664 01 43)</span>
       </button>
     </div>
   </aside>
 
-  <!-- SAĞ ALT SABİT TELEFON ARAMA VE WHATSAPP İKONLARI (BÜYÜYÜP KÜÇÜLEN VE ÇOK DİKKAT ÇEKEN TASARIM) -->
-  <div class="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-50 flex flex-col items-center gap-4">
+  <!-- SAĞ ALT SABİT TELEFON ARAMA VE WHATSAPP İKONLARI (BÜYÜYÜP KÜÇÜLEN VE ÇOK DİKKAT ÇEKEN TASARIM + İSİM SEÇİM MENÜSÜ) -->
+  <div class="fixed bottom-5 right-4 sm:bottom-7 sm:right-7 z-50 flex flex-col items-end gap-4">
     
+    <!-- Açılır Numara Seçim Kartı (İsmail Yörümez & Ayşe Koca) -->
+    <div id="contactChooserMenu" class="hidden bg-white rounded-2xl shadow-2xl border-2 border-brand-green p-3 w-68 sm:w-72 mb-1 space-y-2.5">
+      <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+        <span id="chooserTitle" class="text-xs font-extrabold uppercase tracking-wider text-brand-green">Kiminle Görüşmek İstersiniz?</span>
+        <button onclick="closeContactChooser()" class="text-stone-400 hover:text-stone-700 font-bold text-sm px-1">✕</button>
+      </div>
+
+      <!-- 1. Numara: İsmail Yörümez -->
+      <div class="p-2.5 rounded-xl bg-brand-stone border border-stone-200 flex items-center justify-between gap-2">
+        <div>
+          <p class="font-bold text-xs text-stone-900">İsmail Yörümez</p>
+          <p class="text-[11px] font-semibold text-stone-600">0543 430 54 70</p>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <a href="tel:+905434305470" class="px-2.5 py-1.5 rounded-lg bg-brand-green hover:bg-brand-greenDark text-white font-bold text-[11px] flex items-center gap-1">
+            <span>📞 Ara</span>
+          </a>
+          <button onclick="openDirectWhatsApp(pendingWhatsAppMsg, '905434305470'); closeContactChooser();" class="px-2.5 py-1.5 rounded-lg bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-bold text-[11px] flex items-center gap-1">
+            <span>💬 WhatsApp</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Numara: Ayşe Koca -->
+      <div class="p-2.5 rounded-xl bg-brand-stone border border-stone-200 flex items-center justify-between gap-2">
+        <div>
+          <p class="font-bold text-xs text-stone-900">Ayşe Koca</p>
+          <p class="text-[11px] font-semibold text-stone-600">0541 664 01 43</p>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <a href="tel:+905416640143" class="px-2.5 py-1.5 rounded-lg bg-brand-green hover:bg-brand-greenDark text-white font-bold text-[11px] flex items-center gap-1">
+            <span>📞 Ara</span>
+          </a>
+          <button onclick="openDirectWhatsApp(pendingWhatsAppMsg, '905416640143'); closeContactChooser();" class="px-2.5 py-1.5 rounded-lg bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-bold text-[11px] flex items-center gap-1">
+            <span>💬 WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Telefon Arama İkon Butonu (Büyüyüp Küçülen & Halka Efektli) -->
     <div class="relative flex items-center justify-center">
       <span class="absolute inline-flex h-full w-full rounded-full bg-brand-wheat opacity-60 animate-ping"></span>
-      <a 
-        href="tel:+905434305470"
+      <button 
+        onclick="openContactChooser('call')"
         class="animate-attention-delayed relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-green hover:bg-brand-greenDark text-white flex flex-col items-center justify-center shadow-[0_8px_25px_rgba(45,90,39,0.55)] border-2 border-brand-wheat transition-all"
         aria-label="Hemen Ara"
         title="Mağazayı Hemen Ara"
@@ -995,14 +1053,14 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
         </svg>
         <span class="text-[9px] font-extrabold uppercase tracking-tighter leading-none mt-0.5">ARA</span>
-      </a>
+      </button>
     </div>
 
     <!-- WhatsApp İkon Butonu (Büyüyüp Küçülen & Yeşil Parlama Efektli) -->
     <div class="relative flex items-center justify-center">
       <span class="absolute inline-flex h-full w-full rounded-full bg-brand-whatsapp opacity-75 animate-ping"></span>
       <button 
-        onclick="openDirectWhatsApp('Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.')"
+        onclick="openContactChooser('whatsapp')"
         class="animate-attention relative w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-brand-whatsapp hover:bg-brand-whatsappDark text-white flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.65)] border-2 border-white transition-all"
         aria-label="WhatsApp Sipariş Hattı"
         title="WhatsApp Sipariş Hattı"
@@ -1102,6 +1160,26 @@
         badge: "Halis Maraş Biberi",
         origin: "%100 Doğal",
         image: "sitefoto/evyapımıpulbiber.jpg"
+      },
+      {
+        id: "urun-17",
+        name: "Doğal Kuru Biber Dolması (Dizme)",
+        category: "maras",
+        unit: "1 Dizi (~45-50 Adet)",
+        price: 165,
+        badge: "Güneş Kurusu",
+        origin: "Elbistan Ev Usulü",
+        image: "sitefoto/biberdolması.jpg"
+      },
+      {
+        id: "urun-18",
+        name: "Doğal Kuru Kabak Dolması (Dizme)",
+        category: "maras",
+        unit: "1 Dizi (~45-50 Adet)",
+        price: 175,
+        badge: "İnce Oyma Doğal",
+        origin: "Geleneksel Köy Kurusu",
+        image: "sitefoto/kurukabakdolması.jpg"
       },
 
       // 2. Pekmez, Pestil & Doğal Tatlılar
@@ -1205,6 +1283,22 @@
     let activeCategory = "all";
     let searchQuery = "";
     let orderList = {}; // { productId: quantity }
+    let pendingWhatsAppMsg = "Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.";
+
+    function openContactChooser(mode, customMsg) {
+      if (customMsg) {
+        pendingWhatsAppMsg = customMsg;
+      } else {
+        pendingWhatsAppMsg = "Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.";
+      }
+      const menu = document.getElementById("contactChooserMenu");
+      if (menu) menu.classList.toggle("hidden");
+    }
+
+    function closeContactChooser() {
+      const menu = document.getElementById("contactChooserMenu");
+      if (menu) menu.classList.add("hidden");
+    }
 
     /**
      * Tıklanan Ürünü Otomatik URL Parametresine Çeviren WhatsApp Yönlendirme Fonksiyonu
@@ -1221,9 +1315,9 @@
     /**
      * Genel Doğrudan WhatsApp Mesajı Gönderme
      */
-    function openDirectWhatsApp(customMessage) {
+    function openDirectWhatsApp(customMessage, targetPhone) { const phone = targetPhone || WHATSAPP_PHONE;
       const encodedMessage = encodeURIComponent(customMessage);
-      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodedMessage}`;
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     }
 
@@ -1444,7 +1538,7 @@
     /**
      * Toplu Sipariş Listesini WhatsApp Mesajına Dönüştürüp Gönderme
      */
-    function sendDrawerListToWhatsApp() {
+    function sendDrawerListToWhatsApp(targetPhone) {
       const entries = Object.entries(orderList);
       if (entries.length === 0) {
         openDirectWhatsApp("Merhaba Ayşem Gıda, web sitenizden ürünleriniz hakkında bilgi almak ve sipariş vermek istiyorum.");
@@ -1475,7 +1569,7 @@
       lines.push("Siparişimi onaylamak ve teslimat bilgisi almak istiyorum.");
 
       const fullMessage = lines.join("\n");
-      openDirectWhatsApp(fullMessage);
+      openDirectWhatsApp(fullMessage, targetPhone);
     }
 
     /**
