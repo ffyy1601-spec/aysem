@@ -430,6 +430,17 @@
               </div>
             </div>
           </div>
+          <!-- Sağ Üst 3 Çizgi Kategoriler Menüsü Butonu -->
+          <button
+            onclick="toggleCategoryDrawer(true)"
+            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-stone hover:bg-brand-greenLight border border-stone-200 text-stone-800 hover:text-brand-green shadow-2xs transition-all"
+            aria-label="Kategoriler Menüsü"
+            title="Kategoriler"
+          >
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
           <a class="hidden">
           </a>
         </div>
@@ -1183,6 +1194,14 @@
     // Kategori Başlık Haritası
     const CATEGORY_TITLES = {
       all: "Günün En Taze Köy Ürünleri",
+      all: "Tüm Yöresel Ürünlerimiz",
+      baharat: "Baharat & Aktar Ürünleri",
+      biber: "Biber & Ev Yapımı Salça",
+      tarhana: "Tarhana, Erişte & Kurutmalık",
+      pekmez: "Bal, Pekmez & Yöresel Tatlılar",
+      kahvaltilik: "Kahvaltılık & Köy Sütü Ürünleri",
+      kahve: "Kahve, Salep & Sıcak İçecekler",
+      tavuk: "Doğal Gezen Köy Tavuğu",
       maras: "Elbistan & Maraş Ev Yapımı Lezzetler",
       kahvalti: "Pekmez, Pestil & Doğal Tatlılar",
       sut: "Köy Sütü ve Süt Ürünleri",
@@ -1190,7 +1209,49 @@
     };
 
     // Ürün Veritabanı (Sadece sitefoto klasöründeki 16 gerçek ürün görseli)
-    const PRODUCTS = [
+    const INITIAL_39_PRODUCTS = [
+      { id: "urun-1793218217945", name: "Karabiber", category: "baharat", unit: "1 Kg", price: 650, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793218217945.jpg" },
+      { id: "urun-1793218086877", name: "Çemenlik Pul Biber", category: "biber", unit: "1 Kg", price: 300, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793218086877.jpg" },
+      { id: "urun-1793217958204", name: "İsot İpek", category: "biber", unit: "1 Kg", price: 400, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793217958204.jpg" },
+      { id: "urun-1793217498320", name: "Acı Toz Biber", category: "biber", unit: "1 Kg", price: 350, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793217498320.jpg" },
+      { id: "urun-1793216172340", name: "Tatlı Toz Biber", category: "biber", unit: "500 Gr", price: 350, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793216172340.jpg" },
+      { id: "urun-1793216055157", name: "Sumak Ekşisi", category: "baharat", unit: "500 Gr", price: 250, badge: "Baharat", origin: "%100 Doğal", image: "sitefoto/urun-1793216055157.jpg" },
+      { id: "urun-1793215993119", name: "Dağ Kekiği", category: "baharat", unit: "500 Gr", price: 750, badge: "Baharat", origin: "%100 Doğal", image: "sitefoto/urun-1793215993119.jpg" },
+      { id: "urun-1793215894542", name: "Kuru Nane", category: "baharat", unit: "500 Gr", price: 300, badge: "BAHARAT", origin: "%100 Doğal", image: "sitefoto/urun-1793215894542.jpg" },
+      { id: "urun-1793215351110", name: "Kozalak Pekmezi", category: "pekmez", unit: "900 Gr", price: 400, badge: "El Yapımı", origin: "%100 Doğal", image: "sitefoto/urun-1793215351110.jpg" },
+      { id: "urun-1793214879995", name: "Karadut Özü", category: "pekmez", unit: "1 L", price: 100, badge: "El Yapımı", origin: "%100 Doğal", image: "sitefoto/urun-1793214879995.jpg" },
+      { id: "urun-1793214520513", name: "Cips Tarhana", category: "tarhana", unit: "500 Gr", price: 200, badge: "Tarhana", origin: "Özyüksek", image: "sitefoto/urun-1793214520513.jpg" },
+      { id: "urun-1793214459977", name: "Yoğurtlu Cips Tarhana", category: "tarhana", unit: "500 Gr", price: 200, badge: "Tarhana", origin: "BBŞ Akar", image: "sitefoto/urun-1793214459977.jpg" },
+      { id: "urun-1793214392387", name: "Cips Tarhana", category: "tarhana", unit: "500 Gr", price: 200, badge: "Tarhana", origin: "BBŞ Akar", image: "sitefoto/urun-1793214392387.jpg" },
+      { id: "urun-1793214282431", name: "Cips Tarhana", category: "tarhana", unit: "500 Gr", price: 200, badge: "Tarhana", origin: "Haşiroğlu", image: "sitefoto/urun-1793214282431.jpg" },
+      { id: "urun-1793214127752", name: "Osmanlı Dibek Kahvesi", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Kervansaray", image: "sitefoto/urun-1793214127752.jpg" },
+      { id: "urun-1793214064932", name: "Menengiç ve Damla Sakızlı", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Kervansaray", image: "sitefoto/urun-1793214064932.jpg" },
+      { id: "urun-1793213954644", name: "Menengiç ve kakuleli", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Kervansaray", image: "sitefoto/urun-1793213954644.jpg" },
+      { id: "urun-1793213732058", name: "Sıcak Çikolata", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Savaşbey", image: "sitefoto/urun-1793213732058.jpg" },
+      { id: "urun-1793213554794", name: "Menengiç kahvesi", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Savaşbey", image: "sitefoto/urun-1793213554794.jpg" },
+      { id: "urun-1793213355682", name: "SALEP", category: "kahve", unit: "200 Gr", price: 100, badge: "Kahve - Çay", origin: "Savaşbey", image: "sitefoto/urun-1793213355682.jpg" },
+      { id: "urun-1793209280234", name: "Köy tavugu", category: "tavuk", unit: "Tüm tavuk", price: 900, badge: "Günlük Taze köy tavugu", origin: "Tam köy tavuğu tamamen organik kuru yolum", image: "sitefoto/urun-1793209280234.jpg" },
+      { id: "urun-1", name: "Ev Yapımı Doğal Biber Salçası", category: "biber", unit: "1 Kg", price: 350, badge: "Güneş Kurusu", origin: "Elbistan Ev Yapımı", image: "sitefoto/bibersalçası.jpg" },
+      { id: "urun-2", name: "Ev Yapımı Doğal Domates Salçası", category: "biber", unit: "1 Kg", price: 249, badge: "%100 Katkısız", origin: "Elbistan Tarla Domatesi", image: "sitefoto/domatessalçası.jpg" },
+      { id: "urun-3", name: "Geleneksel Maraş Cips Tarhanası", category: "tarhana", unit: "500 Gr", price: 249, badge: "Güneşte Kurutulmuş", origin: "Ev Yapımı Kıtır", image: "sitefoto/maraştarhanası.jpg" },
+      { id: "urun-4", name: "Elbistan Sıkma Tarhana", category: "tarhana", unit: "1 Kg", price: 350, badge: "Yöresel Çorbalık", origin: "Elbistan Köy Usulü", image: "sitefoto/elbistansıkmatarhana.jpg" },
+      { id: "urun-5", name: "Yöresel Elbistan Çemeni", category: "kahvaltilik", unit: "500 Gr Kase", price: 249, badge: "Kahvaltılık Özel", origin: "Geleneksel Ev Yapımı", image: "sitefoto/elbistançemeni.jpg" },
+      { id: "urun-6", name: "Ev Yapımı Köy Eriştesi", category: "tarhana", unit: "1 Kg", price: 500, badge: "Bol Köy Yumurtalı", origin: "El Kesimi Doğal", image: "sitefoto/evyapımıerişte.jpg" },
+      { id: "urun-7", name: "Ev Yapımı İpek Pul Biber", category: "biber", unit: "500 Gr", price: 249, badge: "Halis Maraş Biberi", origin: "%100 Doğal", image: "sitefoto/evyapımıpulbiber.jpg" },
+      { id: "urun-17", name: "Doğal Kuru Biber Dolması (Dizme)", category: "tarhana", unit: "1 Dizi (~45-50 Adet)", price: 230, badge: "Güneş Kurusu", origin: "Elbistan Ev Usulü", image: "sitefoto/biberdolması.jpg" },
+      { id: "urun-18", name: "Doğal Kuru Kabak Dolması (Dizme)", category: "tarhana", unit: "1 Dizi (~45-50 Adet)", price: 249, badge: "İnce Oyma Doğal", origin: "Geleneksel Köy Kurusu", image: "sitefoto/kurukabakdolması.jpg" },
+      { id: "urun-8", name: "Cevizli Üzüm Sucuğu (Köme)", category: "pekmez", unit: "500 Gr", price: 200, badge: "Kelebek Cevizli", origin: "Glikozsuz Saf Şıra", image: "sitefoto/cevizlisucuk.jpg" },
+      { id: "urun-9", name: "Cevizli Muska Tatlısı (Sarma Pestil)", category: "pekmez", unit: "500 Gr", price: 175, badge: "Bol Ceviz Dolgulu", origin: "Doğal Enerji Kaynağı", image: "sitefoto/cevizlimuska.jpg" },
+      { id: "urun-10", name: "Geleneksel Yaprak Pestil", category: "pekmez", unit: "500 Gr", price: 150, badge: "Güneş Kurusu", origin: "Katkısız Meyve Özü", image: "sitefoto/pastil.jpg" },
+      { id: "urun-11", name: "Odun Ateşinde Saf Dut Pekmezi", category: "pekmez", unit: "1 Kg Kavanoz", price: 495, badge: "Odun Ateşinde", origin: "Şeker İlavesiz Saf", image: "sitefoto/dutpekmezi.jpg" },
+      { id: "urun-12", name: "Odun Ateşinde Doğal Üzüm Pekmezi", category: "pekmez", unit: "1 Kg Kavanoz", price: 495, badge: "%100 Saf Üzüm", origin: "Geleneksel Köy Usulü", image: "sitefoto/üzümpekmezi.jpg" },
+      { id: "urun-13", name: "Doğal Köy Dut Kurusu", category: "pekmez", unit: "500 Gr", price: 295, badge: "Yeni Mahsul", origin: "Ağaçta Kurutulmuş", image: "sitefoto/dutkurusu.jpg" },
+      { id: "urun-14", name: "Geleneksel Yayık Köy Tereyağı", category: "kahvaltilik", unit: "1 Kg", price: 698, badge: "%100 Saf Tereyağı", origin: "Elbistan Köy Mandırası", image: "sitefoto/tereyağ.jpg" },
+      { id: "urun-15", name: "Katkısız Ev Yapımı Köy Peyniri", category: "kahvaltilik", unit: "1 Kg Bidon/Kavanoz", price: 448, badge: "Günlük Taze Süt", origin: "Geleneksel Salamura", image: "sitefoto/peynir.jpg" },
+      { id: "urun-16", name: "Doğal Gezen Köy Tavuğu (Temizlenmiş)", category: "tavuk", unit: "Adet (~2 Kg)", price: 700, badge: "Serbest Gezen", origin: "Elbistan Köy Besisi", image: "sitefoto/köytavuğu.jpg" }
+    ];
+    const PRODUCTS = [...INITIAL_39_PRODUCTS];
+    const LEGACY_UNUSED_PRODUCTS = [
       // 1. Elbistan & Maraş Ev Yapımı Lezzetler
       {
         id: "urun-1",
@@ -1519,13 +1580,16 @@
                 ${
                   qtyInCart === 0
                     ? `<button 
-                        onclick="updateOrderQuantity('${product.id}', 1)"
+                        onclick="openGramSelector('${product.id}')"
                         class="w-full py-1.5 px-2 rounded-lg bg-brand-stone hover:bg-brand-greenLight text-stone-700 hover:text-brand-green border border-stone-200 font-semibold text-[11px] sm:text-xs transition-colors"
                       >
-                        + Sepete Ekle
+                        ⚖️ Gramaj Seç & Sepete Ekle
                       </button>`
                     : `<div class="flex items-center justify-between bg-brand-greenLight/80 border border-brand-green/30 rounded-lg px-2 py-1">
-                        <button onclick="updateOrderQuantity('${product.id}', -1)" class="w-6 h-6 rounded bg-white text-brand-green font-bold text-xs shadow-2xs">-</button>
+                        <button onclick="removeCartItem('${product.id}')" class="px-2 py-0.5 rounded bg-white text-red-600 font-bold text-[11px] shadow-2xs" title="Sepetten Çıkar">✕</button>
+                        <span onclick="openGramSelector('${product.id}')" class="cursor-pointer text-[11px] sm:text-xs font-extrabold text-brand-greenDark truncate px-1">${typeof qtyInCart === 'object' ? qtyInCart.label + ' (' + qtyInCart.price + ' ₺)' : qtyInCart + ' Adet'}</span>
+                        <button onclick="openGramSelector('${product.id}')" class="px-2 py-0.5 rounded bg-brand-green text-white font-bold text-[10px] shadow-2xs">Değiştir</button>
+                      </div><div class="hidden">
                         <span class="text-[11px] sm:text-xs font-bold text-brand-greenDark">${qtyInCart} Adet/Kg</span>
                         <button onclick="updateOrderQuantity('${product.id}', 1)" class="w-6 h-6 rounded bg-brand-green text-white font-bold text-xs shadow-2xs">+</button>
                       </div>`
@@ -1584,7 +1648,7 @@
       const totalPriceEl = document.getElementById("drawerTotalPrice");
 
       const entries = Object.entries(orderList);
-      const totalItems = entries.reduce((acc, [, qty]) => acc + qty, 0);
+      const totalItems = entries.length;
 
       if (headerCount) headerCount.textContent = totalItems;
 
@@ -1607,7 +1671,8 @@
         .map(([id, qty]) => {
           const prod = PRODUCTS.find((p) => p.id === id);
           if (!prod) return "";
-          const lineTotal = prod.price * qty;
+          const lineTotal = typeof qty === "object" ? qty.price : prod.price * qty;
+          const itemLabel = typeof qty === "object" ? qty.label : `${qty} Adet`;
           totalAmount += lineTotal;
 
           return `
@@ -1615,11 +1680,13 @@
               <img src="${prod.image}" alt="${prod.name}" class="w-12 h-12 rounded-lg object-cover shrink-0" />
               <div class="flex-1 min-w-0">
                 <h4 class="font-bold text-xs text-stone-900 truncate">${prod.name}</h4>
-                <p class="text-[11px] text-stone-500">${prod.unit} • ${prod.price} ₺</p>
+                <p class="text-[11px] text-stone-500">Seçilen Miktar: <strong>${itemLabel}</strong> (Birim: ${prod.unit} = ${prod.price} ₺)</p>
                 <p class="text-xs font-extrabold text-brand-green mt-0.5">${lineTotal} ₺</p>
               </div>
               <div class="flex items-center gap-1.5">
-                <button onclick="updateOrderQuantity('${prod.id}', -1)" class="w-7 h-7 rounded-lg bg-white border border-stone-300 font-bold text-xs">-</button>
+                <button onclick="openGramSelector('${prod.id}')" class="px-2.5 py-1 rounded-lg bg-brand-green text-white font-bold text-[11px]">⚖️ Değiştir</button>
+                <button onclick="removeCartItem('${prod.id}')" class="w-7 h-7 rounded-lg bg-red-50 text-red-600 border border-red-200 font-bold text-xs">✕</button>
+              </div><div class="hidden">
                 <span class="text-xs font-bold w-5 text-center">${qty}</span>
                 <button onclick="updateOrderQuantity('${prod.id}', 1)" class="w-7 h-7 rounded-lg bg-brand-green text-white font-bold text-xs">+</button>
               </div>
@@ -1662,9 +1729,13 @@
       entries.forEach(([id, qty]) => {
         const prod = PRODUCTS.find((p) => p.id === id);
         if (prod) {
-          const linePrice = prod.price * qty;
+          const linePrice = typeof qty === "object" ? qty.price : prod.price * qty;
+          const qtyLabel = typeof qty === "object" ? qty.label : `${prod.unit} x ${qty}`;
           total += linePrice;
-          lines.push(`• ${prod.name} (${prod.unit}) x ${qty} = ${linePrice} ₺`);
+          lines.push(`• ${prod.name} — ${qtyLabel} = ${linePrice} ₺`);
+          if (false) {
+          total += linePrice;
+          lines.push(`• ${prod.name} (${prod.unit}) x ${qty} = ${linePrice} ₺`); }
         }
       });
 
@@ -1712,6 +1783,344 @@
     }
 
     // Sayfa Yüklendiğinde Başlat
+    // KATEGORİ TANIMLARI (Sağ üst 3 çizgi menüsü ve yatay filtreler için)
+    const CATEGORY_DRAWER_ITEMS = [
+      { key: "all", title: "TÜM ÜRÜNLER", icon: "🧺", pillLabel: "Tüm Ürünler" },
+      { key: "baharat", title: "BAHARAT & AKTAR", icon: "🌿", pillLabel: "Baharat & Aktar" },
+      { key: "biber", title: "BİBER & SALÇA", icon: "🌶️", pillLabel: "Biber & Salça" },
+      { key: "tarhana", title: "TARHANA, ERİŞTE & KURUTMALIK", icon: "🥣", pillLabel: "Tarhana & Kurutmalık" },
+      { key: "pekmez", title: "BAL, PEKMEZ & TATLI", icon: "🍯", pillLabel: "Bal, Pekmez & Tatlı" },
+      { key: "kahvaltilik", title: "KAHVALTILIK & SÜT ÜRÜNLERİ", icon: "🧀", pillLabel: "Kahvaltılık & Süt" },
+      { key: "kahve", title: "KAHVE - ÇAY", icon: "☕", pillLabel: "Kahve - Çay" },
+      { key: "tavuk", title: "DOĞAL KÖY TAVUĞU", icon: "🐓", pillLabel: "Köy Tavuğu" }
+    ];
+
+    const PERMANENT_PRODUCT_MAP = {};
+    INITIAL_39_PRODUCTS.forEach((p) => {
+      PERMANENT_PRODUCT_MAP[p.id] = { category: p.category, image: p.image, unit: p.unit };
+    });
+
+    function normalizeCatalogProducts() {
+      PRODUCTS.forEach((p) => {
+        if (PERMANENT_PRODUCT_MAP[p.id]) {
+          if (!p.category || ["maras", "sut", "kahvalti"].includes(p.category)) {
+            p.category = PERMANENT_PRODUCT_MAP[p.id].category;
+          }
+          if (p.image && p.image.startsWith("data:image/")) {
+            p.image = PERMANENT_PRODUCT_MAP[p.id].image;
+          }
+        } else {
+          if (p.category === "sut") p.category = "kahvaltilik";
+          else if (p.category === "kahvalti") p.category = "pekmez";
+          else if (p.category === "maras") p.category = "baharat";
+        }
+      });
+    }
+
+    function renderCategoryDrawerAndPills() {
+      normalizeCatalogProducts();
+      const drawerListEl = document.getElementById("categoryDrawerList");
+      if (drawerListEl) {
+        drawerListEl.innerHTML = CATEGORY_DRAWER_ITEMS.map((cat) => {
+          const count = cat.key === "all"
+            ? PRODUCTS.length
+            : PRODUCTS.filter((p) => p.category === cat.key).length;
+          const isActive = activeCategory === cat.key;
+          return `
+            <button
+              type="button"
+              onclick="selectCategoryFromDrawer('${cat.key}')"
+              class="w-full flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all text-left border ${
+                isActive
+                  ? "bg-amber-50/90 border-amber-400 shadow-xs"
+                  : "bg-[#f8f8f8] hover:bg-amber-50/50 border-transparent hover:border-stone-200"
+              }"
+            >
+              <span class="font-extrabold text-xs sm:text-sm tracking-wide ${isActive ? "text-amber-700" : "text-stone-800"}">
+                ${cat.title}
+              </span>
+              <span class="min-w-[2.25rem] h-7 px-2.5 rounded-full bg-[#f3ead8] text-[#b47b22] font-extrabold text-xs inline-flex items-center justify-center">
+                ${count}
+              </span>
+            </button>
+          `;
+        }).join("");
+      }
+
+      const pillsEl = document.getElementById("categoryPills");
+      if (pillsEl) {
+        pillsEl.innerHTML = CATEGORY_DRAWER_ITEMS.map((cat) => {
+          const count = cat.key === "all"
+            ? PRODUCTS.length
+            : PRODUCTS.filter((p) => p.category === cat.key).length;
+          const isActive = activeCategory === cat.key;
+          return `
+            <button
+              type="button"
+              onclick="filterCategory('${cat.key}')"
+              data-cat="${cat.key}"
+              class="cat-pill shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm transition-all ${
+                isActive
+                  ? "font-bold bg-brand-green text-white shadow-sm"
+                  : "font-semibold bg-white text-stone-700 border border-stone-200 hover:border-brand-green"
+              }"
+            >
+              <span>${cat.icon}</span>
+              <span>${cat.pillLabel}</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-stone-100 text-stone-600"}">${count}</span>
+            </button>
+          `;
+        }).join("");
+      }
+    }
+
+    function toggleCategoryDrawer(open) {
+      const drawer = document.getElementById("categoryDrawer");
+      const backdrop = document.getElementById("categoryDrawerBackdrop");
+      if (!drawer || !backdrop) return;
+      if (open) {
+        renderCategoryDrawerAndPills();
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function selectCategoryFromDrawer(categoryKey) {
+      filterCategory(categoryKey);
+      renderCategoryDrawerAndPills();
+      toggleCategoryDrawer(false);
+      const urunlerSec = document.getElementById("urunler");
+      if (urunlerSec) {
+        urunlerSec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    const _origRenderProducts = renderProducts;
+    renderProducts = function () {
+      normalizeCatalogProducts();
+      _origRenderProducts();
+      renderCategoryDrawerAndPills();
+    };
+
+    let currentGramProduct = null;
+    let selectedGramValue = 1000;
+    let currentProductBaseInfo = { type: "gram", baseGrams: 1000 };
+
+    function getProductBaseGrams(prod) {
+      const u = (prod.unit || "").toLowerCase();
+      if (u.includes("dizi")) {
+        return { type: "adet", baseGrams: 1, unitName: "Dizi" };
+      }
+      if (u.includes("adet") || prod.category === "tavuk") {
+        return { type: "adet", baseGrams: 1, unitName: "Adet" };
+      }
+      if (u.includes("lt") || u.includes("litre")) {
+        const matchLt = u.match(/(\d+(?:[.,]\d+)?)/);
+        const ltVal = matchLt ? parseFloat(matchLt[1].replace(",", ".")) : 5;
+        return { type: "adet", baseGrams: 1, unitName: `${ltVal} Lt Bidon` };
+      }
+      const matchGr = u.match(/(\d+)\s*(gr|gram|g\b)/i);
+      if (matchGr) {
+        return { type: "gram", baseGrams: parseInt(matchGr[1], 10) || 1000, unitName: "Gr" };
+      }
+      const matchKg = u.match(/(\d+(?:[.,]\d+)?)\s*(kg|kilo)/i);
+      if (matchKg) {
+        const kgVal = parseFloat(matchKg[1].replace(",", ".")) || 1;
+        return { type: "gram", baseGrams: Math.round(kgVal * 1000), unitName: "Gr" };
+      }
+      return { type: "gram", baseGrams: 1000, unitName: "Gr" };
+    }
+
+    function openGramSelector(productId) {
+      const prod = PRODUCTS.find((p) => p.id === productId);
+      if (!prod) return;
+      currentGramProduct = prod;
+      currentProductBaseInfo = getProductBaseGrams(prod);
+
+      document.getElementById("gramModalImg").src = prod.image;
+      document.getElementById("gramModalName").textContent = prod.name;
+      document.getElementById("gramModalUnitPrice").textContent = `Birim Fiyatı: ${prod.unit} = ${prod.price} ₺`;
+
+      const existingInCart = orderList[prod.id];
+      const presetsContainer = document.getElementById("gramPresetButtons");
+      const customLabel = document.getElementById("gramCustomInputLabel");
+      const unitSuffix = document.getElementById("gramInputSuffix");
+      const stepMinusBtn = document.getElementById("gramStepMinusBtn");
+      const stepPlusBtn = document.getElementById("gramStepPlusBtn");
+
+      if (currentProductBaseInfo.type === "gram") {
+        customLabel.textContent = "İstediğiniz Gramajı Yazın veya Seçin (Gram):";
+        unitSuffix.textContent = "Gr";
+        stepMinusBtn.textContent = "- 50 Gr";
+        stepPlusBtn.textContent = "+ 50 Gr";
+
+        const defaultGrams = existingInCart && typeof existingInCart === "object" && existingInCart.grams
+          ? existingInCart.grams
+          : currentProductBaseInfo.baseGrams;
+        selectedGramValue = defaultGrams;
+
+        const presets = [
+          { val: 100, label: "100 Gr" },
+          { val: 200, label: "200 Gr" },
+          { val: 250, label: "250 Gr" },
+          { val: 500, label: "500 Gr (Yarım Kg)" },
+          { val: 750, label: "750 Gr" },
+          { val: 1000, label: "1000 Gr (1 Kg)" },
+          { val: 1500, label: "1.5 Kg (1500 Gr)" },
+          { val: 2000, label: "2 Kg (2000 Gr)" }
+        ];
+
+        presetsContainer.innerHTML = presets.map((p) => {
+          const calcP = Math.max(1, Math.round((prod.price / currentProductBaseInfo.baseGrams) * p.val));
+          return `
+            <button
+              type="button"
+              data-gram-val="${p.val}"
+              onclick="selectGramAmount(${p.val})"
+              class="gram-preset-btn p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between"
+            >
+              <span class="font-extrabold text-xs sm:text-sm text-stone-900">${p.label}</span>
+              <span class="text-xs font-bold text-brand-green mt-0.5">${calcP} ₺</span>
+            </button>
+          `;
+        }).join("");
+      } else {
+        customLabel.textContent = `Kaç ${currentProductBaseInfo.unitName} Eklemek İstersiniz?`;
+        unitSuffix.textContent = currentProductBaseInfo.unitName;
+        stepMinusBtn.textContent = "- 1";
+        stepPlusBtn.textContent = "+ 1";
+
+        const defaultQty = existingInCart && typeof existingInCart === "object" && existingInCart.grams
+          ? existingInCart.grams
+          : 1;
+        selectedGramValue = defaultQty;
+
+        const presets = [1, 2, 3, 5];
+        presetsContainer.innerHTML = presets.map((q) => {
+          const calcP = Math.round(prod.price * q);
+          return `
+            <button
+              type="button"
+              data-gram-val="${q}"
+              onclick="selectGramAmount(${q})"
+              class="gram-preset-btn p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between"
+            >
+              <span class="font-extrabold text-xs sm:text-sm text-stone-900">${q} ${currentProductBaseInfo.unitName}</span>
+              <span class="text-xs font-bold text-brand-green mt-0.5">${calcP} ₺</span>
+            </button>
+          `;
+        }).join("");
+      }
+
+      document.getElementById("customGramInput").value = selectedGramValue;
+      updateGramModalCalculation();
+      document.getElementById("gramSelectorModal").classList.remove("hidden");
+    }
+
+    function closeGramSelector() {
+      const modal = document.getElementById("gramSelectorModal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function selectGramAmount(val) {
+      selectedGramValue = Math.max(1, Number(val) || 100);
+      const inp = document.getElementById("customGramInput");
+      if (inp) inp.value = selectedGramValue;
+      updateGramModalCalculation();
+    }
+
+    function adjustGramAmount(delta) {
+      if (currentProductBaseInfo.type === "gram") {
+        const step = delta > 0 ? 50 : -50;
+        selectedGramValue = Math.max(50, (Number(selectedGramValue) || 100) + step);
+      } else {
+        const step = delta > 0 ? 1 : -1;
+        selectedGramValue = Math.max(1, (Number(selectedGramValue) || 1) + step);
+      }
+      const inp = document.getElementById("customGramInput");
+      if (inp) inp.value = selectedGramValue;
+      updateGramModalCalculation();
+    }
+
+    function onCustomGramChange() {
+      const inp = document.getElementById("customGramInput");
+      const raw = Number(inp.value);
+      if (raw > 0) {
+        selectedGramValue = raw;
+        updateGramModalCalculation();
+      }
+    }
+
+    function updateGramModalCalculation() {
+      if (!currentGramProduct) return;
+      const btns = document.querySelectorAll(".gram-preset-btn");
+      btns.forEach((b) => {
+        const v = Number(b.getAttribute("data-gram-val"));
+        if (v === Number(selectedGramValue)) {
+          b.className = "gram-preset-btn p-2.5 rounded-xl border-2 border-brand-green bg-brand-greenLight/70 text-left transition-all flex flex-col justify-between shadow-2xs";
+        } else {
+          b.className = "gram-preset-btn p-2.5 rounded-xl border border-stone-200 bg-brand-stone hover:border-brand-green/50 text-left transition-all flex flex-col justify-between";
+        }
+      });
+
+      let calculatedPrice = 0;
+      let displayLabel = "";
+
+      if (currentProductBaseInfo.type === "gram") {
+        calculatedPrice = Math.max(1, Math.round((currentGramProduct.price / currentProductBaseInfo.baseGrams) * selectedGramValue));
+        if (selectedGramValue >= 1000 && selectedGramValue % 1000 === 0) {
+          displayLabel = `${selectedGramValue / 1000} Kg (${selectedGramValue} Gr)`;
+        } else {
+          displayLabel = `${selectedGramValue} Gr`;
+        }
+      } else {
+        calculatedPrice = Math.max(1, Math.round(currentGramProduct.price * selectedGramValue));
+        displayLabel = `${selectedGramValue} ${currentProductBaseInfo.unitName}`;
+      }
+
+      document.getElementById("gramModalSelectedLabel").textContent = displayLabel;
+      document.getElementById("gramModalCalculatedPrice").textContent = `${calculatedPrice} ₺`;
+    }
+
+    function confirmAddGramToCart() {
+      if (!currentGramProduct) return;
+      let calculatedPrice = 0;
+      let displayLabel = "";
+
+      if (currentProductBaseInfo.type === "gram") {
+        calculatedPrice = Math.max(1, Math.round((currentGramProduct.price / currentProductBaseInfo.baseGrams) * selectedGramValue));
+        displayLabel = `${selectedGramValue} Gr`;
+      } else {
+        calculatedPrice = Math.max(1, Math.round(currentGramProduct.price * selectedGramValue));
+        displayLabel = `${selectedGramValue} ${currentProductBaseInfo.unitName}`;
+      }
+
+      orderList[currentGramProduct.id] = {
+        grams: selectedGramValue,
+        price: calculatedPrice,
+        label: displayLabel
+      };
+
+      closeGramSelector();
+      renderProducts();
+      updateDrawerUI();
+    }
+
+    function removeCartItem(productId) {
+      delete orderList[productId];
+      renderProducts();
+      updateDrawerUI();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      normalizeCatalogProducts();
+      renderCategoryDrawerAndPills();
+      renderProducts();
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       renderProducts();
       updateDrawerUI();
@@ -2067,7 +2476,7 @@
       const res = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj })
+        body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj._ext ? { _ext: priceDataObj._ext, updated: Date.now() } : priceDataObj })
       });
       return res.ok;
     }
@@ -2224,7 +2633,7 @@
         if (false) fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj })
+          body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj._ext ? { _ext: priceDataObj._ext, updated: Date.now() } : priceDataObj })
         });
         if (false) fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${PRICE_CLOUD_KEY}/${PRICE_CLOUD_ITEM}/${packedString}`, {
           method: "POST"
@@ -2453,6 +2862,13 @@
                   id="prodCategoryInput"
                   class="w-full px-2.5 py-2 text-xs sm:text-sm font-bold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
                 >
+                  <option value="baharat">🌿 BAHARAT & AKTAR</option>
+                  <option value="biber">🌶️ BİBER & SALÇA</option>
+                  <option value="tarhana">🥣 TARHANA, ERİŞTE & KURUTMALIK</option>
+                  <option value="pekmez">🍯 BAL, PEKMEZ & TATLI</option>
+                  <option value="kahvaltilik">🧀 KAHVALTILIK & SÜT ÜRÜNLERİ</option>
+                  <option value="kahve">☕ KAHVE - ÇAY</option>
+                  <option value="tavuk">🐓 KÖY TAVUĞU</option>
                   <option value="maras">🌶️ Elbistan & Maraş Ev Lezzetleri</option>
                   <option value="sut">🧀 Köy Sütü & Süt Ürünleri</option>
                   <option value="kahvalti">🍯 Pekmez, Pestil & Tatlılar</option>
@@ -2502,6 +2918,112 @@
             💾 Fiyatları Kaydet ve Yayınla
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- SAĞ ÜST 3 ÇİZGİ KATEGORİLER ÇEKMECESİ (Görseldeki Tasarım İle Birebir) -->
+  <div id="categoryDrawerBackdrop" onclick="toggleCategoryDrawer(false)" class="hidden fixed inset-0 bg-black/50 backdrop-blur-xs z-50 transition-opacity"></div>
+  <aside id="categoryDrawer" class="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Üst Başlık: 4 Kare Gold İkon + KATEGORİLER + Kapat Çizgisi -->
+    <div class="px-5 py-4 border-b border-stone-100 flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2.5">
+        <svg class="w-5 h-5 text-[#c88a2b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+        </svg>
+        <h3 class="font-extrabold text-sm sm:text-base tracking-wider text-stone-900 uppercase">KATEGORİLER</h3>
+      </div>
+      <button onclick="toggleCategoryDrawer(false)" class="w-9 h-9 rounded-xl hover:bg-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-700 font-bold text-lg transition-colors" aria-label="Kategorileri Kapat">
+        ✕
+      </button>
+    </div>
+
+    <!-- Kategori Satırları Listesi -->
+    <div id="categoryDrawerList" class="flex-1 overflow-y-auto p-4 space-y-2.5 bg-white">
+      <!-- JS ile renderCategoryDrawerAndPills() tarafından doldurulur -->
+    </div>
+
+    <!-- Alt Bilgi -->
+    <div class="p-4 border-t border-stone-100 bg-brand-stone/60 text-center">
+      <p class="text-xs font-semibold text-stone-500">🌿 Elbistan Ayşem Gıda Doğal Köy Ürünleri</p>
+    </div>
+  </aside>
+
+  <!-- GRAMAJ SEÇİMİ VE OTOMATİK FİYAT HESAPLAMA MODALI -->
+  <div id="gramSelectorModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4" onclick="if(event.target === this) closeGramSelector()">
+    <div class="bg-white rounded-3xl shadow-2xl border-2 border-brand-green w-full max-w-md overflow-hidden">
+      <!-- Üst Başlık -->
+      <div class="p-4 bg-brand-green text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">⚖️</span>
+          <div>
+            <h3 class="font-serif font-bold text-base leading-tight">Gramaj & Miktar Seçin</h3>
+            <p class="text-[11px] text-brand-greenLight/90">Seçtiğiniz gramaja göre fiyat otomatik hesaplanır</p>
+          </div>
+        </div>
+        <button onclick="closeGramSelector()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-sm flex items-center justify-center" aria-label="Kapat">✕</button>
+      </div>
+
+      <div class="p-4 sm:p-5 space-y-4 max-h-[82vh] overflow-y-auto">
+        <!-- Ürün Özeti -->
+        <div class="flex items-center gap-3 p-2.5 rounded-2xl bg-brand-stone border border-stone-200">
+          <img id="gramModalImg" src="sitefoto/logo.jpg" alt="Ürün" class="w-14 h-14 rounded-xl object-cover shrink-0 border border-stone-200" />
+          <div class="min-w-0 flex-1">
+            <h4 id="gramModalName" class="font-bold text-sm text-stone-900 truncate">Ürün Adı</h4>
+            <p id="gramModalUnitPrice" class="text-xs font-extrabold text-brand-green mt-0.5">Birim Fiyatı: 1 Kg = 250 ₺</p>
+          </div>
+        </div>
+
+        <!-- Hazır Gramaj Seçenekleri -->
+        <div>
+          <label class="block text-xs font-extrabold text-stone-700 mb-2">⚡ Hızlı Gramaj Seçimi:</label>
+          <div id="gramPresetButtons" class="grid grid-cols-2 gap-2">
+            <!-- JS ile doldurulur -->
+          </div>
+        </div>
+
+        <!-- Özel Gramaj Yazma Kutusu -->
+        <div class="p-3 rounded-2xl bg-brand-stone border border-stone-200">
+          <label id="gramCustomInputLabel" class="block text-xs font-extrabold text-stone-700 mb-1.5">İstediğiniz Gramajı Yazın veya Seçin (Gram):</label>
+          <div class="flex items-center gap-2">
+            <button type="button" id="gramStepMinusBtn" onclick="adjustGramAmount(-50)" class="px-3 py-2 rounded-xl bg-white hover:bg-stone-100 border border-stone-300 font-extrabold text-xs text-stone-700 shrink-0">- 50 Gr</button>
+            <div class="relative flex-1">
+              <input
+                type="number"
+                id="customGramInput"
+                min="1"
+                step="50"
+                oninput="onCustomGramChange()"
+                class="w-full px-3 py-2 pr-10 text-center font-extrabold text-base text-brand-green bg-white border-2 border-brand-green/50 rounded-xl focus:outline-none focus:border-brand-green"
+              />
+              <span id="gramInputSuffix" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500">Gr</span>
+            </div>
+            <button type="button" id="gramStepPlusBtn" onclick="adjustGramAmount(50)" class="px-3 py-2 rounded-xl bg-white hover:bg-stone-100 border border-stone-300 font-extrabold text-xs text-stone-700 shrink-0">+ 50 Gr</button>
+          </div>
+        </div>
+
+        <!-- Hesaplanan Fiyat Özeti -->
+        <div class="p-3.5 rounded-2xl bg-brand-greenLight/70 border-2 border-brand-green/30 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-stone-600 block">Seçilen Miktar:</span>
+            <span id="gramModalSelectedLabel" class="font-extrabold text-sm sm:text-base text-stone-900">1000 Gr</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] font-bold text-stone-600 block">Hesaplanan Tutar:</span>
+            <span id="gramModalCalculatedPrice" class="font-extrabold text-lg sm:text-xl text-brand-green">250 ₺</span>
+          </div>
+        </div>
+
+        <!-- Sepete Ekle Onay Butonu -->
+        <button
+          type="button"
+          onclick="confirmAddGramToCart()"
+          class="w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-brand-greenDark text-white font-extrabold text-sm sm:text-base shadow-md transition-all flex items-center justify-center gap-2"
+        >
+          <span>🛒 Bu Gramajla Sepete Ekle</span>
+        </button>
       </div>
     </div>
   </div>
