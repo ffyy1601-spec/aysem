@@ -70,6 +70,11 @@
   </script>
 
   <style>
+    body {
+      overflow-x: clip;
+      max-width: 100%;
+      width: 100%;
+    }
     /* Yatay kaydırma çubuğunu gizleme (Mobil Kategori Pills) */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -346,11 +351,11 @@
   <!-- HEADER / ÜST MENÜ (Aşağı kaydırılırken üstte sabit kalan alan + Hızlı Sayfa Navigasyon Sekmeleri) -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs transition-all">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+      <div class="flex items-center justify-between py-2 sm:py-0 sm:h-20 gap-1.5 sm:gap-3">
         
         <!-- Logo & Marka -->
-        <a href="#" class="flex items-center gap-2.5 group shrink-0">
-          <img src="sitefoto/logo.jpg" alt="Ayşem Gıda Elbistan Logo" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm shrink-0" />
+        <a href="#" class="flex items-center gap-2 sm:gap-2.5 group min-w-0 flex-1 sm:flex-initial">
+          <img src="sitefoto/logo.jpg" alt="Ayşem Gıda Elbistan Logo" class="w-10 h-10 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm shrink-0" />
           <div class="hidden">
             <!-- Başak / Yaprak İkonu -->
             <!-- Tabeladaki Köy Evi, Dağlar, Güneş ve Tarla İkonu -->
@@ -358,8 +363,8 @@
             <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="18" r="10" fill="#D49A3D" opacity="0.95"/><path d="M6 38L20 20L32 33L46 17L58 38H6Z" fill="#EAF2E8" opacity="0.25"/><path d="M8 38L20 22L31 34M29 34L45 19L57 38" stroke="#D49A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 38L14 29L17 38H11Z" fill="#D49A3D"/><path d="M49 38L52 28L55 38H49Z" fill="#D49A3D"/><path d="M21 38V29L29 23L37 29V38H21Z" fill="#FFFFFF"/><path d="M19 30L29 22L39 30" stroke="#D49A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="25" y="31" width="3" height="3" fill="#2D5A27"/><rect x="30" y="31" width="3" height="7" fill="#2D5A27"/><path d="M8 42C20 38 44 38 56 42" stroke="#D49A3D" stroke-width="2.4" stroke-linecap="round"/><path d="M12 47C24 42 40 42 52 47" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/><path d="M18 52C28 47 36 47 46 52" stroke="#D49A3D" stroke-width="2" stroke-linecap="round"/></svg>
           </div>
           <div>
-            <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-brand-green block leading-none"><span class="text-2xl sm:text-3xl">A</span>YŞEM GIDA</span>
-            <span class="text-[10px] sm:text-xs font-bold tracking-wider uppercase text-stone-500 block mt-0.5">Elbistan Yöresel Ürünler</span>
+            <span class="font-serif text-lg sm:text-2xl font-bold tracking-tight text-brand-green block leading-none truncate"><span class="text-xl sm:text-3xl">A</span>YŞEM GIDA</span>
+            <span class="text-[9px] sm:text-xs font-bold tracking-normal sm:tracking-wider uppercase text-stone-500 block mt-0.5 truncate">Elbistan Yöresel Ürünler</span>
           </div>
         </a>
 
@@ -379,11 +384,11 @@
         </div>
 
         <!-- Sağ Aksiyonlar: Sipariş Listesi Çekmecesi & WhatsApp -->
-        <div class="relative flex items-center gap-2 sm:gap-3">
+        <div class="relative flex items-center gap-1.5 sm:gap-3 shrink-0">
           <!-- Sepetim Butonu (Drawer Tetikleyici) -->
           <button 
             onclick="toggleOrderDrawer(true)"
-            class="relative inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-brand-wheatLight border border-brand-wheat/40 text-stone-800 hover:bg-brand-wheat/20 transition-colors text-xs sm:text-sm font-semibold"
+            class="relative inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-full bg-brand-wheatLight border border-brand-wheat/40 text-stone-800 hover:bg-brand-wheat/20 transition-colors text-xs sm:text-sm font-semibold shrink-0"
             aria-label="Sepetimi Aç"
           >
             <svg class="w-4 h-4 sm:w-5 sm:h-5 text-brand-wheat" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -433,7 +438,7 @@
           <!-- Sağ Üst 3 Çizgi Kategoriler Menüsü Butonu -->
           <button
             onclick="toggleCategoryDrawer(true)"
-            class="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-stone hover:bg-brand-greenLight border border-stone-200 text-stone-800 hover:text-brand-green shadow-2xs transition-all"
+            class="inline-flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-brand-stone hover:bg-brand-greenLight border border-stone-200 text-stone-800 hover:text-brand-green shadow-2xs transition-all shrink-0"
             aria-label="Kategoriler Menüsü"
             title="Kategoriler"
           >
@@ -464,16 +469,16 @@
 
       <!-- YUKARIDA SABİT KALAN HIZLI MENÜ SEKMELERİ (Tüm Ürünler, Müşteri Yorumları, İletişim & Konum) -->
       <nav aria-label="Sayfa İçi Hızlı Menü" class="border-t border-stone-200/70 py-2 overflow-x-auto no-scrollbar">
-        <div class="grid grid-cols-3 sm:flex sm:items-center gap-2">
-          <a href="#urunler" onclick="filterCategory('all')" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
+        <div class="grid grid-cols-3 sm:flex sm:items-center gap-1.5 sm:gap-2">
+          <a href="#urunler" onclick="filterCategory('all')" class="inline-flex items-center justify-center gap-1 px-1.5 sm:px-4 py-2 rounded-full text-[10.5px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all whitespace-nowrap">
             <span>🧺</span>
             <span class="truncate">Tüm Ürünler</span>
           </a>
-          <a href="#yorumlar" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
+          <a href="#yorumlar" class="inline-flex items-center justify-center gap-1 px-1.5 sm:px-4 py-2 rounded-full text-[10.5px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all whitespace-nowrap">
             <span>⭐</span>
             <span class="truncate">Müşteri Yorumları</span>
           </a>
-          <a href="#iletisim" class="inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all">
+          <a href="#iletisim" class="inline-flex items-center justify-center gap-1 px-1.5 sm:px-4 py-2 rounded-full text-[10.5px] sm:text-sm font-bold bg-brand-green text-white shadow-sm hover:bg-brand-greenDark active:scale-95 transition-all whitespace-nowrap">
             <span>📍</span>
             <span class="truncate">İletişim & Konum</span>
           </a>
@@ -482,7 +487,7 @@
     </div>
   </header>
 
-  <main>
+  <main class="overflow-x-hidden w-full">
     <!-- 1. HERO BÖLÜMÜ (Görsel Odaklı, Az Yazılı, Vurucu Sloganlı Vitrin Ekranı) -->
     <section class="relative overflow-hidden bg-brand-stone pt-3 pb-4 sm:py-6 border-b border-stone-200/70">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -528,7 +533,7 @@
     </section>
 
     <!-- 2. YATAY KATEGORİ FİLTRELERİ (Sayfa ile birlikte normal kayar, üstte sabit kalıp ekranı daraltmaz) -->
-    <section id="urunler" class="bg-brand-stone border-b border-stone-200/80 py-3 sm:py-4 scroll-mt-36">
+    <section id="urunler" class="bg-brand-stone border-b border-stone-200/80 py-3 sm:py-4 scroll-mt-44">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-2 px-1">
           <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-brand-green">Ürün Kategorisi Seçin:</span>
@@ -1057,7 +1062,7 @@
 
   <!-- SEPETİM ÇEKMECESİ (MINI DRAWER - TOPLU WHATSAPP SİPARİŞİ) -->
   <div id="orderDrawerBackdrop" onclick="toggleOrderDrawer(false)" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden transition-opacity"></div>
-  <aside id="orderDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+  <aside id="orderDrawer" class="hidden fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
     <!-- Çekmece Başlığı -->
     <div class="p-4 sm:p-5 bg-brand-green text-white flex items-center justify-between">
       <div class="flex items-center gap-2.5">
@@ -1154,7 +1159,7 @@
 
     <!-- Telefon Arama İkon Butonu (Büyüyüp Küçülen & Halka Efektli) -->
     <div class="relative flex items-center justify-center">
-      <span class="absolute inline-flex h-full w-full rounded-full bg-brand-wheat opacity-60 animate-ping"></span>
+      <span class="absolute inline-flex h-3/4 w-3/4 rounded-full bg-brand-wheat opacity-60 animate-ping"></span>
       <button 
         onclick="openContactChooser('call')"
         class="animate-attention-delayed relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-green hover:bg-brand-greenDark text-white flex flex-col items-center justify-center shadow-[0_8px_25px_rgba(45,90,39,0.55)] border-2 border-brand-wheat transition-all"
@@ -1170,7 +1175,7 @@
 
     <!-- WhatsApp İkon Butonu (Büyüyüp Küçülen & Yeşil Parlama Efektli) -->
     <div class="relative flex items-center justify-center">
-      <span class="absolute inline-flex h-full w-full rounded-full bg-brand-whatsapp opacity-75 animate-ping"></span>
+      <span class="absolute inline-flex h-3/4 w-3/4 rounded-full bg-brand-whatsapp opacity-75 animate-ping"></span>
       <button 
         onclick="openContactChooser('whatsapp')"
         class="animate-attention relative w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-brand-whatsapp hover:bg-brand-whatsappDark text-white flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.65)] border-2 border-white transition-all"
@@ -1568,7 +1573,7 @@
                 <!-- Doğrudan Ürün WhatsApp Butonu -->
                 <button 
                   onclick="orderSingleProductViaWhatsApp('${safeName}', '${safeUnit}')"
-                  class="w-full py-2 sm:py-2.5 px-2 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark active:scale-[0.99] text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all"
+                  class="w-full py-2 sm:py-2.5 px-1.5 sm:px-2 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark active:scale-[0.99] text-white font-bold text-[10.5px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 shadow-xs transition-all"
                 >
                   <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0" viewBox="0 0 24 24">
                     <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
@@ -1583,7 +1588,7 @@
                         onclick="openGramSelector('${product.id}')"
                         class="w-full py-1.5 px-2 rounded-lg bg-brand-stone hover:bg-brand-greenLight text-stone-700 hover:text-brand-green border border-stone-200 font-semibold text-[11px] sm:text-xs transition-colors"
                       >
-                        ⚖️ Gramaj Seç & Sepete Ekle
+                        + Sepete Ekle
                       </button>`
                     : `<div class="flex items-center justify-between bg-brand-greenLight/80 border border-brand-green/30 rounded-lg px-2 py-1">
                         <button onclick="removeCartItem('${product.id}')" class="px-2 py-0.5 rounded bg-white text-red-600 font-bold text-[11px] shadow-2xs" title="Sepetten Çıkar">✕</button>
@@ -1706,10 +1711,10 @@
       const backdrop = document.getElementById("orderDrawerBackdrop");
       if (open) {
         backdrop.classList.remove("hidden");
-        drawer.classList.remove("translate-x-full");
+        drawer.classList.remove("hidden", "translate-x-full");
       } else {
         backdrop.classList.add("hidden");
-        drawer.classList.add("translate-x-full");
+        drawer.classList.add("translate-x-full", "hidden");
       }
     }
 
@@ -1881,10 +1886,10 @@
       if (open) {
         renderCategoryDrawerAndPills();
         backdrop.classList.remove("hidden");
-        drawer.classList.remove("translate-x-full");
+        drawer.classList.remove("hidden", "translate-x-full");
       } else {
         backdrop.classList.add("hidden");
-        drawer.classList.add("translate-x-full");
+        drawer.classList.add("translate-x-full", "hidden");
       }
     }
 
@@ -2923,7 +2928,7 @@
   </div>
   <!-- SAĞ ÜST 3 ÇİZGİ KATEGORİLER ÇEKMECESİ (Görseldeki Tasarım İle Birebir) -->
   <div id="categoryDrawerBackdrop" onclick="toggleCategoryDrawer(false)" class="hidden fixed inset-0 bg-black/50 backdrop-blur-xs z-50 transition-opacity"></div>
-  <aside id="categoryDrawer" class="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+  <aside id="categoryDrawer" class="hidden fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
     <!-- Üst Başlık: 4 Kare Gold İkon + KATEGORİLER + Kapat Çizgisi -->
     <div class="px-5 py-4 border-b border-stone-100 flex items-center justify-between bg-white">
       <div class="flex items-center gap-2.5">
