@@ -1753,6 +1753,18 @@
 
     async function loadCloudPrices() {
       try {
+        const savedFullCatalog = localStorage.getItem("aysem_full_catalog_v2");
+        if (savedFullCatalog) {
+          try {
+            const parsedCat = JSON.parse(savedFullCatalog);
+            if (Array.isArray(parsedCat) && parsedCat.length > 0) {
+              PRODUCTS.length = 0;
+              parsedCat.forEach((item) => PRODUCTS.push(item));
+              renderProducts();
+              updateDrawerUI();
+            }
+          } catch (e) {}
+        }
         const cached = localStorage.getItem("aysem_fiyat_cache");
         if (cached) applyPackedPrices(cached);
         const cloudRes = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", { cache: "no-store" });
@@ -1760,6 +1772,20 @@
           const cloudJson = await cloudRes.json();
           if (cloudJson && cloudJson.data) {
             let changed = false;
+            if (typeof cloudJson !== "undefined" && cloudJson && cloudJson.data && cloudJson.data._ext) {
+              try {
+                const extRes = await fetch(`https://bytebin.lucko.me/${cloudJson.data._ext}`);
+                if (extRes.ok) {
+                  const extCatalog = await extRes.json();
+                  if (Array.isArray(extCatalog) && extCatalog.length > 0) {
+                    PRODUCTS.length = 0;
+                    extCatalog.forEach((item) => PRODUCTS.push(item));
+                    localStorage.setItem("aysem_full_catalog_v2", JSON.stringify(PRODUCTS));
+                    changed = true;
+                  }
+                }
+              } catch (extErr) {}
+            }
             Object.entries(cloudJson.data).forEach(([id, val]) => {
               const prod = PRODUCTS.find((p) => p.id === id);
               const numVal = Number(val);
@@ -1781,6 +1807,20 @@
           if (ghData && ghData.content) {
             const priceObj = JSON.parse(atob(ghData.content.replace(/\s/g, "")));
             let changed = false;
+            if (typeof cloudJson !== "undefined" && cloudJson && cloudJson.data && cloudJson.data._ext) {
+              try {
+                const extRes = await fetch(`https://bytebin.lucko.me/${cloudJson.data._ext}`);
+                if (extRes.ok) {
+                  const extCatalog = await extRes.json();
+                  if (Array.isArray(extCatalog) && extCatalog.length > 0) {
+                    PRODUCTS.length = 0;
+                    extCatalog.forEach((item) => PRODUCTS.push(item));
+                    localStorage.setItem("aysem_full_catalog_v2", JSON.stringify(PRODUCTS));
+                    changed = true;
+                  }
+                }
+              } catch (extErr) {}
+            }
             Object.entries(priceObj).forEach(([id, val]) => {
               const prod = PRODUCTS.find((p) => p.id === id);
               const numVal = Number(val);
@@ -1848,7 +1888,280 @@
       document.getElementById("pricePinScreen").classList.add("hidden");
       const editorScreen = document.getElementById("priceEditorScreen");
       editorScreen.classList.remove("hidden");
-      const listEl = document.getElementById("adminPriceListContainer");
+      switchAdminTab("list");
+      renderAdminProductList();
+    }
+
+    let currentFormImageData = "sitefoto/peynir.jpg";
+
+    function switchAdminTab(tabName) {
+      const listWrap = document.getElementById("adminTabListWrap");
+      const formWrap = document.getElementById("adminTabFormWrap");
+      const btnList = document.getElementById("tabBtnList");
+      const btnForm = document.getElementById("tabBtnForm");
+      if (!listWrap || !formWrap) return;
+
+      if (tabName === "form") {
+        listWrap.classList.add("hidden");
+        formWrap.classList.remove("hidden");
+        btnForm.className = "py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-brand-green text-white shadow-xs transition-all";
+        btnList.className = "py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-white text-stone-700 border border-stone-200 hover:border-brand-green transition-all";
+      } else {
+        formWrap.classList.add("hidden");
+        listWrap.classList.remove("hidden");
+        btnList.className = "py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-brand-green text-white shadow-xs transition-all";
+        btnForm.className = "py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-white text-stone-700 border border-stone-200 hover:border-brand-green transition-all";
+        renderAdminProductList();
+      }
+    }
+
+    function renderAdminProductList() {
+      const listEl = document.getElementById("adminPriceListMain");
+      if (!listEl) return;
+      listEl.innerHTML = PRODUCTS.map((prod) => `
+        <div class="p-2.5 sm:p-3 rounded-xl bg-brand-stone border border-stone-200 space-y-2">
+          <div class="flex items-center justify-between gap-2.5">
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">
+              <img src="${prod.image}" alt="${prod.name}" class="w-12 h-12 rounded-lg object-cover shrink-0 border border-stone-200" />
+              <div class="min-w-0">
+                <p class="font-bold text-xs sm:text-sm text-stone-900 truncate">${prod.name}</p>
+                <p class="text-[10px] sm:text-[11px] text-brand-leaf font-semibold truncate">${prod.badge} • ${prod.origin}</p>
+                <p class="text-[10px] text-stone-500 font-medium">Birim: ${prod.unit}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <input
+                type="number"
+                min="1"
+                step="1"
+                data-price-id="${prod.id}"
+                value="${prod.price}"
+                class="w-20 sm:w-22 px-2 py-1.5 text-right font-extrabold text-sm text-brand-green bg-white border-2 border-brand-green/40 rounded-xl focus:outline-none focus:border-brand-green"
+              />
+              <span class="font-extrabold text-xs sm:text-sm text-stone-700">₺</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-end gap-2 pt-1 border-t border-stone-200/70">
+            <button type="button" onclick="openEditProductInForm('${prod.id}')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-brand-greenLight text-brand-green border border-brand-green/30 font-bold text-[11px] transition-colors">
+              ✏️ Köşe Yazılarını & Fotoyu Düzenle
+            </button>
+            <button type="button" onclick="deleteProductFromAdmin('${prod.id}')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-red-50 text-red-600 border border-red-200 font-bold text-[11px] transition-colors">
+              🗑️ Sil
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function startAddNewProduct() {
+      document.getElementById("editProdId").value = "";
+      document.getElementById("formModeBadge").textContent = "Yeni Ürün Ekleme";
+      document.getElementById("prodBadgeInput").value = "Günlük Taze";
+      document.getElementById("prodUnitInput").value = "1 Kg";
+      document.getElementById("prodOriginInput").value = "Elbistan Ev Yapımı";
+      document.getElementById("prodNameInput").value = "";
+      document.getElementById("prodPriceInput").value = "250";
+      document.getElementById("prodCategoryInput").value = "maras";
+      const fileInp = document.getElementById("prodImageFileInput");
+      if (fileInp) fileInp.value = "";
+      currentFormImageData = "sitefoto/logo.jpg";
+      const statusEl = document.getElementById("formSaveStatus");
+      if (statusEl) statusEl.className = "hidden";
+      switchAdminTab("form");
+      updateLiveCardPreview();
+    }
+
+    function openEditProductInForm(prodId) {
+      const prod = PRODUCTS.find((p) => p.id === prodId);
+      if (!prod) return;
+      document.getElementById("editProdId").value = prod.id;
+      document.getElementById("formModeBadge").textContent = "Ürün Düzenleme";
+      document.getElementById("prodBadgeInput").value = prod.badge || "";
+      document.getElementById("prodUnitInput").value = prod.unit || "";
+      document.getElementById("prodOriginInput").value = prod.origin || "";
+      document.getElementById("prodNameInput").value = prod.name || "";
+      document.getElementById("prodPriceInput").value = prod.price || "";
+      document.getElementById("prodCategoryInput").value = prod.category || "maras";
+      const fileInp = document.getElementById("prodImageFileInput");
+      if (fileInp) fileInp.value = "";
+      currentFormImageData = prod.image;
+      const statusEl = document.getElementById("formSaveStatus");
+      if (statusEl) statusEl.className = "hidden";
+      switchAdminTab("form");
+      updateLiveCardPreview();
+    }
+
+    function updateLiveCardPreview() {
+      const badge = document.getElementById("prodBadgeInput").value.trim() || "Doğal Ürün";
+      const unit = document.getElementById("prodUnitInput").value.trim() || "1 Kg";
+      const origin = document.getElementById("prodOriginInput").value.trim() || "Elbistan Yöresel";
+      const name = document.getElementById("prodNameInput").value.trim() || "Ürün Adı Buraya Gelecek";
+      const price = document.getElementById("prodPriceInput").value.trim() || "0";
+
+      document.getElementById("previewCardImg").src = currentFormImageData;
+      document.getElementById("previewCardBadge").textContent = badge;
+      document.getElementById("previewCardUnit").textContent = unit;
+      document.getElementById("previewCardOrigin").textContent = origin;
+      document.getElementById("previewCardName").textContent = name;
+      document.getElementById("previewCardPrice").textContent = `${price} ₺`;
+      document.getElementById("previewCardUnitSub").textContent = `/ ${unit}`;
+    }
+
+    function handleAdminImageSelect(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 640;
+          let w = img.width;
+          let h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) {
+              h = Math.round((h * maxDim) / w);
+              w = maxDim;
+            } else {
+              w = Math.round((w * maxDim) / h);
+              h = maxDim;
+            }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          currentFormImageData = canvas.toDataURL("image/jpeg", 0.78);
+          updateLiveCardPreview();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function syncFullCatalogToCloud() {
+      localStorage.setItem("aysem_full_catalog_v2", JSON.stringify(PRODUCTS));
+      const priceDataObj = {};
+      PRODUCTS.forEach((p) => { priceDataObj[p.id] = p.price; });
+
+      try {
+        const bbRes = await fetch("https://bytebin.lucko.me/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(PRODUCTS)
+        });
+        if (bbRes.ok) {
+          const bbJson = await bbRes.json();
+          if (bbJson && bbJson.key) {
+            priceDataObj._ext = bbJson.key;
+            localStorage.setItem("aysem_ext_key", bbJson.key);
+          }
+        }
+      } catch (err) {}
+
+      if (!priceDataObj._ext) {
+        const prevExt = localStorage.getItem("aysem_ext_key");
+        if (prevExt) priceDataObj._ext = prevExt;
+      }
+
+      const res = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj })
+      });
+      return res.ok;
+    }
+
+    async function saveProductFromForm() {
+      const editId = document.getElementById("editProdId").value.trim();
+      const badge = document.getElementById("prodBadgeInput").value.trim() || "Doğal Ürün";
+      const unit = document.getElementById("prodUnitInput").value.trim() || "1 Kg";
+      const origin = document.getElementById("prodOriginInput").value.trim() || "Elbistan Yöresel";
+      const name = document.getElementById("prodNameInput").value.trim();
+      const price = Math.round(Number(document.getElementById("prodPriceInput").value)) || 100;
+      const category = document.getElementById("prodCategoryInput").value || "maras";
+      const statusEl = document.getElementById("formSaveStatus");
+      const saveBtn = document.getElementById("saveProductFormBtn");
+
+      if (!name) {
+        if (statusEl) {
+          statusEl.textContent = "⚠️ Lütfen ürün adını yazın.";
+          statusEl.className = "text-xs font-bold text-red-600 bg-red-50 p-2.5 rounded-xl text-center block";
+        }
+        return;
+      }
+
+      if (editId) {
+        const existing = PRODUCTS.find((p) => p.id === editId);
+        if (existing) {
+          existing.name = name;
+          existing.badge = badge;
+          existing.unit = unit;
+          existing.origin = origin;
+          existing.price = price;
+          existing.category = category;
+          existing.image = currentFormImageData;
+        }
+      } else {
+        const newId = "urun-" + Date.now();
+        PRODUCTS.unshift({
+          id: newId,
+          name,
+          category,
+          unit,
+          price,
+          badge,
+          origin,
+          image: currentFormImageData
+        });
+      }
+
+      renderProducts();
+      updateDrawerUI();
+
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Kaydediliyor...";
+      }
+
+      try {
+        await syncFullCatalogToCloud();
+        if (statusEl) {
+          statusEl.textContent = "✅ Ürün başarıyla kaydedildi ve vitrine eklendi!";
+          statusEl.className = "text-xs font-bold text-brand-green bg-brand-greenLight p-2.5 rounded-xl text-center block";
+        }
+        setTimeout(() => switchAdminTab("list"), 900);
+      } catch (err) {
+        if (statusEl) {
+          statusEl.textContent = "✅ Ürün bu cihazda vitrine eklendi!";
+          statusEl.className = "text-xs font-bold text-brand-green bg-brand-greenLight p-2.5 rounded-xl text-center block";
+        }
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "✅ Ürünü Vitrine Kaydet ve Yayınla";
+        }
+      }
+    }
+
+    async function deleteProductFromAdmin(prodId) {
+      const prod = PRODUCTS.find((p) => p.id === prodId);
+      if (!prod) return;
+      if (!confirm(`"${prod.name}" ürününü vitrinden kaldırmak istediğinize emin misiniz?`)) return;
+      const idx = PRODUCTS.findIndex((p) => p.id === prodId);
+      if (idx !== -1) {
+        PRODUCTS.splice(idx, 1);
+      }
+      renderAdminProductList();
+      renderProducts();
+      updateDrawerUI();
+      try {
+        await syncFullCatalogToCloud();
+      } catch (e) {}
+    }
+
+    function unusedOldAdminRender() {
+      const listEl = document.getElementById("adminPriceListMain");
       listEl.innerHTML = PRODUCTS.map((prod) => `
         <div class="flex items-center justify-between gap-3 p-2.5 sm:p-3 rounded-xl bg-brand-stone border border-stone-200">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -1906,7 +2219,9 @@
       try {
         const priceDataObj = {};
         PRODUCTS.forEach((p) => { priceDataObj[p.id] = p.price; });
-        const res = await fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
+        const ok = await syncFullCatalogToCloud();
+        const res = { ok };
+        if (false) fetch("https://api.restful-api.dev/objects/ff808181a09d98f701a1737207010802", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: "aysemgida_fiyatlar", data: priceDataObj })
@@ -1944,8 +2259,9 @@
         <div class="flex items-center gap-2.5">
           <span class="text-xl">🏷️</span>
           <div>
-            <h3 class="font-serif font-bold text-base sm:text-lg leading-tight">Ayşem Gıda Fiyat Yönetimi</h3>
-            <p class="text-[11px] text-brand-greenLight/90">Sadece ürün fiyatlarını hızlıca güncelleyin</p>
+            <h3 class="font-serif font-bold text-base sm:text-lg leading-tight">Ayşem Gıda Ürün & Fiyat Yönetimi</h3>
+            <p class="text-[11px] text-brand-greenLight/90">Fiyatları değiştirin, yeni ürün ekleyin veya köşe yazılarını düzenleyin</p>
+
           </div>
         </div>
         <button onclick="closePriceAdminModal()" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold text-sm" aria-label="Kapat">✕</button>
@@ -1978,15 +2294,205 @@
 
       <!-- 2. Aşama: Sadece Ürün Fiyatlarını Değiştirme Ekranı -->
       <div id="priceEditorScreen" class="hidden flex-1 flex flex-col min-h-0">
-        <div class="px-4 py-2.5 bg-brand-wheatLight border-b border-brand-wheat/30 text-xs text-stone-700 font-medium shrink-0">
+        <!-- Üst Sekmeler: Mevcut Ürünler Listesi vs Yeni Ürün Ekle / Önizle -->
+        <div class="grid grid-cols-2 gap-1.5 p-2.5 bg-brand-stone border-b border-stone-200 shrink-0">
+          <button id="tabBtnList" onclick="switchAdminTab('list')" class="py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-brand-green text-white shadow-xs transition-all">
+            🏷️ Ürünler & Fiyatlar
+          </button>
+          <button id="tabBtnForm" onclick="startAddNewProduct()" class="py-2 px-3 rounded-xl font-extrabold text-xs sm:text-sm bg-white text-stone-700 border border-stone-200 hover:border-brand-green transition-all">
+            ➕ Yeni Ürün Ekle
+          </button>
+        </div>
+
+        <!-- SEKME 1: MEVCUT ÜRÜNLER & HIZLI FİYAT LİSTESİ -->
+        <div id="adminTabListWrap" class="flex-1 flex flex-col min-h-0">
+          <div class="px-4 py-2 bg-brand-wheatLight border-b border-brand-wheat/30 text-[11px] sm:text-xs text-stone-700 font-medium shrink-0">
+            💡 Fiyatları kutucuktan değiştirip alttaki <strong>"Kaydet"</strong> butonuna basın. Köşe yazılarını veya fotoğrafı değiştirmek için ürünün altındaki <strong>"✏️ Düzenle"</strong> butonuna dokunun.
+          </div>
+
+          <div class="hidden">
+          </div>
+          <div id="adminPriceListMain" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2.5">
+            <!-- JS ile ürünler buraya yüklenir -->
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-brand-stone border-t border-stone-200 space-y-2 shrink-0">
+            <p id="savePricesStatus" class="hidden"></p>
+            <button
+              id="savePricesBtn"
+              onclick="saveAllProductPrices()"
+              class="w-full py-3.5 px-4 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-extrabold text-sm sm:text-base shadow-md transition-all"
+            >
+              💾 Fiyatları Kaydet ve Yayınla
+            </button>
+          </div>
+        </div>
+
+        <!-- SEKME 2: YENİ ÜRÜN EKLE / KÖŞE YAZILARINI DÜZENLE + CANLI KART ÖNİZLEME -->
+        <div id="adminTabFormWrap" class="hidden flex-1 overflow-y-auto p-3.5 sm:p-4 space-y-4">
+          <input type="hidden" id="editProdId" value="" />
+
+          <!-- CANLI KART ÖNİZLEMESİ (Birebir Sitedeki Ürün Kartı Görünümü) -->
+          <div class="bg-brand-stone p-3 rounded-2xl border-2 border-dashed border-brand-green/40">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-brand-green">👀 Canlı Kart Önizlemesi (Sitede Böyle Görünecek)</span>
+              <span id="formModeBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-greenLight text-brand-green">Yeni Ürün</span>
+            </div>
+
+            <div class="max-w-[230px] mx-auto">
+              <article class="bg-white rounded-2xl border border-stone-200/90 shadow-card flex flex-col justify-between overflow-hidden">
+                <div>
+                  <div class="relative aspect-[4/3] bg-stone-100 overflow-hidden">
+                    <img id="previewCardImg" src="sitefoto/peynir.jpg" alt="Önizleme" class="w-full h-full object-cover" />
+                    <span id="previewCardBadge" class="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-brand-green/95 text-white backdrop-blur-xs shadow-xs">
+                      Günlük Taze Süt
+                    </span>
+                    <span id="previewCardUnit" class="absolute bottom-2 right-2 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 text-stone-800 shadow-xs">
+                      1 Kg Bidon/Kavanoz
+                    </span>
+                  </div>
+                  <div class="p-2.5 sm:p-3.5">
+                    <span id="previewCardOrigin" class="text-[10px] sm:text-[11px] font-semibold text-brand-leaf block truncate">
+                      Geleneksel Salamura
+                    </span>
+                    <h3 id="previewCardName" class="font-bold text-xs sm:text-sm text-stone-900 mt-0.5 line-clamp-2 min-h-[2rem] leading-snug">
+                      Katkısız Ev Yapımı Köy Peyniri
+                    </h3>
+                    <div class="mt-2 flex items-baseline justify-between">
+                      <div>
+                        <span id="previewCardPrice" class="text-sm sm:text-base font-extrabold text-brand-green">448 ₺</span>
+                        <span id="previewCardUnitSub" class="text-[10px] sm:text-xs text-stone-400 font-medium">/ 1 Kg Bidon/Kavanoz</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- FORM ALANLARI -->
+          <div class="space-y-3">
+            <!-- 1. Fotoğraf Seçimi -->
+            <div class="p-3 rounded-xl bg-brand-wheatLight/70 border border-brand-wheat/40">
+              <label class="block text-xs font-extrabold text-stone-800 mb-1.5">📷 1. Ürün Fotoğrafı Seçin:</label>
+              <input
+                type="file"
+                id="prodImageFileInput"
+                accept="image/*"
+                onchange="handleAdminImageSelect(event)"
+                class="block w-full text-xs text-stone-700 file:mr-3 file:py-2 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-extrabold file:bg-brand-green file:text-white hover:file:bg-brand-greenDark cursor-pointer"
+              />
+              <p class="text-[10px] text-stone-500 mt-1">Galeriden veya bilgisayardan fotoğraf seçtiğinizde otomatik hızlandırılır ve üstteki önizlemeye yerleşir.</p>
+            </div>
+
+            <!-- 2. Köşelerdeki Etiket Yazıları -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">🟢 Sol Üst Yeşil Köşe Yazısı:</label>
+                <input
+                  type="text"
+                  id="prodBadgeInput"
+                  oninput="updateLiveCardPreview()"
+                  placeholder="Örn: Günlük Taze Süt"
+                  class="w-full px-3 py-2 text-xs sm:text-sm font-semibold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+                />
+              </div>
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">⚪ Sağ Alt Beyaz Birim Yazısı:</label>
+                <input
+                  type="text"
+                  id="prodUnitInput"
+                  oninput="updateLiveCardPreview()"
+                  placeholder="Örn: 1 Kg Bidon/Kavanoz"
+                  class="w-full px-3 py-2 text-xs sm:text-sm font-semibold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+                />
+              </div>
+            </div>
+
+            <!-- 3. Yeşil Küçük Üst Başlık & Ana Ürün Adı -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">🌿 Yeşil Küçük Üst Yazı:</label>
+                <input
+                  type="text"
+                  id="prodOriginInput"
+                  oninput="updateLiveCardPreview()"
+                  placeholder="Örn: Geleneksel Salamura"
+                  class="w-full px-3 py-2 text-xs sm:text-sm font-semibold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+                />
+              </div>
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">🏷️ Ana Ürün Adı (Kalın Başlık):</label>
+                <input
+                  type="text"
+                  id="prodNameInput"
+                  oninput="updateLiveCardPreview()"
+                  placeholder="Örn: Katkısız Ev Yapımı Köy Peyniri"
+                  class="w-full px-3 py-2 text-xs sm:text-sm font-bold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+                />
+              </div>
+            </div>
+
+            <!-- 4. Fiyat ve Kategori -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">💰 Ürün Fiyatı (₺):</label>
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  id="prodPriceInput"
+                  oninput="updateLiveCardPreview()"
+                  placeholder="Örn: 448"
+                  class="w-full px-3 py-2 text-sm font-extrabold text-brand-green bg-white border-2 border-brand-green/50 rounded-xl focus:outline-none focus:border-brand-green"
+                />
+              </div>
+              <div>
+                <label class="block text-[11px] font-extrabold text-stone-700 mb-1">📂 Ürün Kategorisi:</label>
+                <select
+                  id="prodCategoryInput"
+                  class="w-full px-2.5 py-2 text-xs sm:text-sm font-bold bg-white border border-stone-300 rounded-xl focus:outline-none focus:border-brand-green"
+                >
+                  <option value="maras">🌶️ Elbistan & Maraş Ev Lezzetleri</option>
+                  <option value="sut">🧀 Köy Sütü & Süt Ürünleri</option>
+                  <option value="kahvalti">🍯 Pekmez, Pestil & Tatlılar</option>
+                  <option value="tavuk">🐓 Gezen Köy Tavuğu</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <p id="formSaveStatus" class="hidden"></p>
+
+          <!-- Kaydet / İptal Butonları -->
+          <div class="flex items-center gap-2 pt-1">
+            <button
+              type="button"
+              onclick="switchAdminTab('list')"
+              class="px-4 py-3 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold text-xs sm:text-sm transition-all"
+            >
+              ← Listeye Dön
+            </button>
+            <button
+              type="button"
+              id="saveProductFormBtn"
+              onclick="saveProductFromForm()"
+              class="flex-1 py-3 px-4 rounded-xl bg-brand-whatsapp hover:bg-brand-whatsappDark text-white font-extrabold text-xs sm:text-sm shadow-md transition-all"
+            >
+              ✅ Ürünü Vitrine Kaydet ve Yayınla
+            </button>
+          </div>
+        </div>
+
+        <div class="hidden">
           💡 Değiştirmek istediğiniz ürünün yanındaki kutucuğa yeni fiyatı yazıp en alttaki <strong>"Fiyatları Kaydet ve Yayınla"</strong> butonuna basın.
         </div>
 
-        <div id="adminPriceListContainer" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2.5">
+          <div class="hidden">
           <!-- JS ile 18 ürün buraya yüklenir -->
         </div>
 
-        <div class="p-4 bg-brand-stone border-t border-stone-200 space-y-2.5 shrink-0">
+        <div class="hidden">
           <p id="savePricesStatus" class="hidden"></p>
           <button
             id="savePricesBtn"
